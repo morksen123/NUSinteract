@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Orbital 2022</Text>
+      <Text>Orbital 2022 2.0</Text>
       <StatusBar style="auto" />
     </View>
   );
