@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import AuthScreen from './screens/AuthScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Orbital 2022 2.01</Text>
+      <AuthScreen/>
       <StatusBar style="auto" />
     </View>
   );
