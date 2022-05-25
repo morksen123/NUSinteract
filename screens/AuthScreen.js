@@ -6,7 +6,8 @@ import {
     Keyboard,
     KeyboardAvoidingView,
     Platform, 
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 
 import { useState } from 'react';
@@ -15,6 +16,8 @@ import AuthTextInput from '../components/auth/AuthTextInput';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js'
+import AuthPressable from '../components/auth/AuthPressable';
+
 
 const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
 const supabaseAnonKey = 
@@ -58,13 +61,22 @@ const AuthScreen = () => {
     return (
         <KeyboardAvoidingView
             // change to android? 
+            // style={{ flex:  }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
 
             <View style={styles.container}>
-                <Text style={[styles.title, styles.boldText]}>
+                <Text>
                     NUSinteract
                 </Text>
+
+           
+                <Image
+                    source = {require('../assets/splash.png')}
+                    style = {{width: 2000, height: 200}}
+                />
+          
+                
 
                 <AuthTextInput
                     value={email}
@@ -78,7 +90,15 @@ const AuthScreen = () => {
                     placeholder='password'
                     textHandler={setPassword}
                     secureTextEntry
-                />    
+                />
+                <AuthPressable
+                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
+                    title={'Proceed'}
+                />
+                <AuthPressable
+                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
+                    title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
+                />
             </View>
         </KeyboardAvoidingView>
     )
@@ -104,12 +124,13 @@ export default AuthScreen;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#EBECF0',
-        flex: 1, 
+        backgroundColor: '#7FFFD4',
+        height: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        // padding: 100
     },
-        
+    
     title: {
         fontSize: 32, 
         textAlign: 'center',
