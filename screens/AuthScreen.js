@@ -2,7 +2,6 @@ import {
     StyleSheet,
     Text,
     View,
-    ToastAndroid, 
     Keyboard,
     KeyboardAvoidingView,
     Platform, 
@@ -53,11 +52,19 @@ const AuthScreen = () => {
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
+        restoreForm(); 
+        
+        error ? Alert.alert(error.message) : Alert.alert('Sign up successful')
         setIsLogin(false)
     }
 
+    const restoreForm = () => {
+        setEmail(''); 
+        setPassword('')
+        Keyboard.dismiss(); 
+    }
 
+    
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -76,7 +83,7 @@ const AuthScreen = () => {
           
                 <AuthTextInput
                     value={email}
-                    placeholder='Your Email'
+                    placeholder='Email'
                     textHandler={setEmail}
                     KeyboardType='email-address'
                 />
@@ -88,32 +95,17 @@ const AuthScreen = () => {
                     secureTextEntry
                 />
                 <AuthPressable
-                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
-                    title={'Proceed'}
+                    onPressHandler={signInWithEmail}    
+                    title={'SIGN IN'}
                 />
                 <AuthPressable
-                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
-                    title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
+                    onPressHandler={signUpWithEmail}    
+                    title={'SIGN UP'}
                 />
             </View>
         </KeyboardAvoidingView>
     )
-/*
-    // messages
-    const signUpToast = () => {
-        ToastAndroid.show(
-            'Sign Up Successfully completed!', 
-            ToastAndroid.SHORT
-        );
-    };
 
-    const missingFieldsToast = () => {
-        ToastAndroid.show(
-            'Missing Fields, please try again!',
-            ToastAndroid.SHORT
-        );
-    };
-    */
 }
 
 export default AuthScreen; 
