@@ -6,7 +6,8 @@ import {
     Keyboard,
     KeyboardAvoidingView,
     Platform, 
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 
 import { useState } from 'react';
@@ -15,6 +16,8 @@ import AuthTextInput from '../components/auth/AuthTextInput';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js'
+import AuthPressable from '../components/auth/AuthPressable';
+
 
 const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
 const supabaseAnonKey = 
@@ -57,15 +60,20 @@ const AuthScreen = () => {
 
     return (
         <KeyboardAvoidingView
-            // change to android? 
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
 
             <View style={styles.container}>
+             
+                <Image
+                    source = {require('../assets/test.png')}
+                    style = {{width: 200, height: 220, bottom: 15}}
+                />
+
                 <Text style={[styles.title, styles.boldText]}>
                     NUSinteract
                 </Text>
-
+          
                 <AuthTextInput
                     value={email}
                     placeholder='Your Email'
@@ -78,7 +86,15 @@ const AuthScreen = () => {
                     placeholder='password'
                     textHandler={setPassword}
                     secureTextEntry
-                />    
+                />
+                <AuthPressable
+                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
+                    title={'Proceed'}
+                />
+                <AuthPressable
+                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
+                    title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
+                />
             </View>
         </KeyboardAvoidingView>
     )
@@ -104,19 +120,20 @@ export default AuthScreen;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#EBECF0',
-        flex: 1, 
+        backgroundColor: '#7FFFD4',
+        height: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-        
+    
     title: {
-        fontSize: 32, 
+        fontSize: 35, 
+        fontFamily: "AvenirNext-Italic",
         textAlign: 'center',
         marginBottom: 20
     },
 
     boldText: {
-        fontWeight: '400'
+        fontWeight: '500'
     }
 });
