@@ -67,7 +67,6 @@ const AuthScreen = () => {
         restoreForm(); 
         
         error ? Alert.alert(error.message) : Alert.alert('Sign up successful')
-        setIsLogin(false)
     }
 
     const restoreForm = () => {
