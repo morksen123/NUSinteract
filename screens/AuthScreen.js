@@ -56,18 +56,8 @@ const AuthScreen = () => {
         }
 
         restoreForm(); 
+    }
     
-
-    const restoreForm = () => {
-        setEmail(''); 
-        setPassword('')
-        Keyboard.dismiss(); 
-    }
-
-        restoreForm(); 
-        
-        error ? Alert.alert(error.message) : Alert.alert('Sign up successful')
-    }
 
     const restoreForm = () => {
         setEmail(''); 
@@ -110,7 +100,7 @@ const AuthScreen = () => {
                 />
                 <AuthPressable
                     onPressHandler={signUpWithEmail}    
-                    title={'SIGN UP WITH NUSNET'}
+                    title={'SIGN UP WITH NUS EMAIL'}
                 />
             </View>
         </KeyboardAvoidingView>
