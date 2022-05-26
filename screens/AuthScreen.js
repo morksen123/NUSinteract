@@ -56,7 +56,7 @@ const AuthScreen = () => {
         }
 
         restoreForm(); 
-    }
+    
 
     const restoreForm = () => {
         setEmail(''); 
@@ -75,8 +75,6 @@ const AuthScreen = () => {
         Keyboard.dismiss(); 
     }
 
-
-    
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -112,12 +110,11 @@ const AuthScreen = () => {
                 />
                 <AuthPressable
                     onPressHandler={signUpWithEmail}    
-                    title={'SIGN UP'}
+                    title={'SIGN UP WITH NUSNET'}
                 />
             </View>
         </KeyboardAvoidingView>
     )
-
 }
 
 export default AuthScreen; 
