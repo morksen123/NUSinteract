@@ -63,6 +63,20 @@ const AuthScreen = () => {
         setPassword('')
         Keyboard.dismiss(); 
     }
+
+        restoreForm(); 
+        
+        error ? Alert.alert(error.message) : Alert.alert('Sign up successful')
+        setIsLogin(false)
+    }
+
+    const restoreForm = () => {
+        setEmail(''); 
+        setPassword('')
+        Keyboard.dismiss(); 
+    }
+
+
     
     return (
         <KeyboardAvoidingView
