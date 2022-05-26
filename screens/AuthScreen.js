@@ -2,7 +2,6 @@ import {
     StyleSheet,
     Text,
     View,
-    ToastAndroid, 
     Keyboard,
     KeyboardAvoidingView,
     Platform, 
@@ -30,34 +29,41 @@ const AuthScreen = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLogin, setIsLogin] = useState(false);
-
 
     // check if possible log in
     async function signInWithEmail() {
-        setIsLogin(true)
         const { user, error } = await supabase.auth.signIn({
             email: email,
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
-        setIsLogin(false)
+        if (error) Alert.alert('Invalid Email / Password')
     }
 
     // check if sign up passed through
     async function signUpWithEmail() {
-        setIsLogin(true)
-        const { user, error } = await supabase.auth.signUp({ 
-            email: email,
-            password: password,
-        })
 
-        if (error) Alert.alert(error.message)
-        setIsLogin(false)
+        if (!email.includes("@u.nus.edu")) {
+            Alert.alert("NUS email required");
+        } else {
+            const { user, error } = await supabase.auth.signUp({ 
+                email: email,
+                password: password,
+            }) 
+
+            error ? Alert.alert(error.message) : 
+                Alert.alert("Sign Up Sucessful!")
+        }
+
+        restoreForm(); 
     }
 
-
+    const restoreForm = () => {
+        setEmail(''); 
+        setPassword('')
+        Keyboard.dismiss(); 
+    }
+    
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -76,7 +82,7 @@ const AuthScreen = () => {
           
                 <AuthTextInput
                     value={email}
-                    placeholder='Your Email'
+                    placeholder='Email'
                     textHandler={setEmail}
                     KeyboardType='email-address'
                 />
@@ -88,32 +94,17 @@ const AuthScreen = () => {
                     secureTextEntry
                 />
                 <AuthPressable
-                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
-                    title={'Proceed'}
+                    onPressHandler={signInWithEmail}    
+                    title={'SIGN IN'}
                 />
                 <AuthPressable
-                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
-                    title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
+                    onPressHandler={signUpWithEmail}    
+                    title={'SIGN UP'}
                 />
             </View>
         </KeyboardAvoidingView>
     )
-/*
-    // messages
-    const signUpToast = () => {
-        ToastAndroid.show(
-            'Sign Up Successfully completed!', 
-            ToastAndroid.SHORT
-        );
-    };
 
-    const missingFieldsToast = () => {
-        ToastAndroid.show(
-            'Missing Fields, please try again!',
-            ToastAndroid.SHORT
-        );
-    };
-    */
 }
 
 export default AuthScreen; 
