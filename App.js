@@ -1,13 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View } from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
+
 import AuthScreen from './screens/AuthScreen';
+import HomeScreen from './screens/HomeScreen';
 
 const App = () => {
   return (
-    <View>
-      <AuthScreen/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>  
+      <View>
+        <AuthScreen/>
+        <StatusBar style="auto" />
+      </View>
+    </NavigationContainer>
   );
 }
 
