@@ -16,6 +16,7 @@ import AuthTextInput from '../components/auth/AuthTextInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js'
 import AuthPressable from '../components/auth/AuthPressable';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
@@ -25,7 +26,7 @@ const supabaseAnonKey =
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 
-const AuthScreen = () => {
+const AuthScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +38,11 @@ const AuthScreen = () => {
             password: password,
         })
 
-        if (error) Alert.alert('Invalid Email / Password')
+        if (error) {
+            Alert.alert('Invalid Email / Password')
+        } else {
+            navigation.navigate("Home")
+        }
     }
 
     // check if sign up passed through

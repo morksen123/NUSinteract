@@ -1,12 +1,11 @@
-import { Text } from "react-native";
-import { View } from "react-native-web";
+import { View, Text } from "react-native";
+
 
 const HomeScreen = () => {
     return (
-        
-        <Text>HELLO</Text>
-        
-        
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Home Screen</Text>
+        </View>  
     )
 }
 
