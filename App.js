@@ -13,13 +13,14 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>  
-      
-        <HomeScreen/>
-        <StatusBar style="auto" />
-      
+      <Stack.Navigator>
+        <Stack.Screen name="Auth" component={AuthScreen} options={{header: () => null}}/>
+        <Stack.Screen name="Home" component={HomeScreen}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
 
 export default App; 
 

@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
+            <Text>abc</Text>
         </View>  
     )
 }
