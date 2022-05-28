@@ -1,12 +1,11 @@
 import { StyleSheet, Text, Pressable } from "react-native"; 
 
 
-const AuthPressable = ({ onPressHandler, title, disabled }) => {
+const AuthPressable = ({ onPressHandler, title }) => {
     return (
         <Pressable
             style={styles.button}
             onPress={onPressHandler}
-            disabled={disabled}
         >
              <Text style={styles.text}>{title}</Text>
 

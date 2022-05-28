@@ -6,18 +6,18 @@ import {
     KeyboardAvoidingView,
     Platform, 
     Alert,
-    Image
+    TextInput
 } from 'react-native';
+
+import AuthPressable from '../components/auth/AuthPressable';
 
 import { useState } from 'react';
 
-import AuthTextInput from '../components/auth/AuthTextInput';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js'
-import AuthPressable from '../components/auth/AuthPressable';
-import { NavigationContainer } from '@react-navigation/native';
 
+// Not authenticated also added
+
+const THEME = '#3F3F3F';
 
 const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
 const supabaseAnonKey = 
@@ -26,34 +26,25 @@ const supabaseAnonKey =
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 
-const AuthScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    // check if possible log in
-    async function signInWithEmail() {
-        const { user, error } = await supabase.auth.signIn({
-            email: email,
-            password: password,
-        })
-
-        if (error) {
-            Alert.alert('Invalid Email / Password')
-        } else {
-            navigation.navigate("Home")
-        }
-    }
+    const [ confirmPassword, setConfirmPassword] = useState('');
 
     // check if sign up passed through
     async function signUpWithEmail() {
 
         if (!email.includes("@u.nus.edu")) {
             Alert.alert("NUS email required");
+        
+        } else if (password != confirmPassword) {
+            Alert.alert("Different passwords")
+        
         } else {
             const { user, error } = await supabase.auth.signUp({ 
                 email: email,
-                password: password,
+                password: confirmPassword,
             }) 
 
             error ? Alert.alert(error.message) : 
@@ -66,10 +57,11 @@ const AuthScreen = ({ navigation }) => {
 
     const restoreForm = () => {
         setEmail(''); 
-        setPassword('')
+        setPassword('');
+        setConfirmPassword('');
         Keyboard.dismiss(); 
     }
-
+    
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -77,44 +69,50 @@ const AuthScreen = ({ navigation }) => {
 
             <View style={styles.container}>
              
-                <Image
-                    source = {require('../assets/test.png')}
-                    style = {{width: 200, height: 220, bottom: 15}}
-                />
-
                 <Text style={[styles.title, styles.boldText]}>
-                    NUSinteract
+                    Sign Up
                 </Text>
           
-                <AuthTextInput
-                    value={email}
-                    placeholder='Email'
-                    textHandler={setEmail}
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='Email' 
                     KeyboardType='email-address'
+                    value={email}
+                    onChangeText={setEmail}
+                    selectionColor={THEME}
                 />
 
-                <AuthTextInput
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='Password' 
                     value={password}
-                    placeholder='password'
-                    textHandler={setPassword}
+                    onChangeText={setPassword}
+                    selectionColor={THEME}
                     secureTextEntry
                 />
-                <AuthPressable
-                    onPressHandler={signInWithEmail}    
-                    title={'SIGN IN'}
+
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='Confirm password' 
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                    selectionColor={THEME}
+                    secureTextEntry
                 />
+
                 <AuthPressable
                     onPressHandler={signUpWithEmail}    
-                    title={'SIGN UP WITH NUS EMAIL'}
+                    title={'Proceed'}
                 />
             </View>
         </KeyboardAvoidingView>
     )
 }
 
-export default AuthScreen; 
+export default SignUpScreen; 
 
 const styles = StyleSheet.create({
+
     container: {
         backgroundColor: '#7FFFD4',
         height: '100%',
@@ -127,6 +125,17 @@ const styles = StyleSheet.create({
         fontFamily: "AvenirNext-Italic",
         textAlign: 'center',
         marginBottom: 20
+    },
+
+    textInput: {
+        alignSelf: 'center',
+        borderWidth: 2,
+        borderColor: THEME, 
+        borderRadius: 4, 
+        width: '80%',
+        height: 40, 
+        paddingHorizontal: 8, 
+        marginBottom: 10
     },
 
     boldText: {
