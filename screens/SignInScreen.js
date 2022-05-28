@@ -2,21 +2,21 @@ import {
     StyleSheet,
     Text,
     View,
-    ToastAndroid, 
     Keyboard,
     KeyboardAvoidingView,
     Platform, 
     Alert,
-    Image
+    Image,
+    TextInput,
 } from 'react-native';
 
 import { useState } from 'react';
 
-import AuthTextInput from '../components/auth/AuthTextInput';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createClient } from '@supabase/supabase-js'
 import AuthPressable from '../components/auth/AuthPressable';
+
+import { createClient } from '@supabase/supabase-js'
+
+const THEME = '#3F3F3F';
 
 
 const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
@@ -26,37 +26,35 @@ const supabaseAnonKey =
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 
-const AuthScreen = () => {
+const SignInScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLogin, setIsLogin] = useState(false);
-
 
     // check if possible log in
     async function signInWithEmail() {
-        setIsLogin(true)
         const { user, error } = await supabase.auth.signIn({
             email: email,
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
-        setIsLogin(false)
+        if (error) {
+            Alert.alert('Invalid Email / Password')
+        } else {
+            navigation.navigate("Home")
+        }
     }
 
-    // check if sign up passed through
-    async function signUpWithEmail() {
-        setIsLogin(true)
-        const { user, error } = await supabase.auth.signUp({ 
-            email: email,
-            password: password,
-        })
-
-        if (error) Alert.alert(error.message)
-        setIsLogin(false)
+    const restoreForm = () => {
+        setEmail(''); 
+        setPassword('')
+        Keyboard.dismiss(); 
     }
 
+    const navigateToSignUp = () => {
+        navigation.navigate("SignUp")
+    }
+    
 
     return (
         <KeyboardAvoidingView
@@ -72,58 +70,60 @@ const AuthScreen = () => {
                 <Text style={[styles.title, styles.boldText]}>
                     NUSinteract
                 </Text>
-          
-                <AuthTextInput
-                    value={email}
-                    placeholder='Your Email'
-                    textHandler={setEmail}
+
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='Email' 
                     KeyboardType='email-address'
+                    value={email}
+                    onChangeText={setEmail}
+                    selectionColor={THEME}
                 />
 
-                <AuthTextInput
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='password' 
                     value={password}
-                    placeholder='password'
-                    textHandler={setPassword}
+                    onChangeText={setPassword}
+                    selectionColor={THEME}
                     secureTextEntry
                 />
+
                 <AuthPressable
-                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
-                    title={'Proceed'}
+                    onPressHandler={signInWithEmail}    
+                    title={'SIGN IN'}
                 />
                 <AuthPressable
-                    onPressHandler={isLogin ? signInWithEmail : signUpWithEmail}    
-                    title={`Switch to ${isLogin ? 'Sign Up' : 'Login'}`}
+                    onPressHandler={navigateToSignUp}    
+                    title={'SIGN UP WITH NUS EMAIL'}
                 />
             </View>
         </KeyboardAvoidingView>
     )
-/*
-    // messages
-    const signUpToast = () => {
-        ToastAndroid.show(
-            'Sign Up Successfully completed!', 
-            ToastAndroid.SHORT
-        );
-    };
-
-    const missingFieldsToast = () => {
-        ToastAndroid.show(
-            'Missing Fields, please try again!',
-            ToastAndroid.SHORT
-        );
-    };
-    */
 }
 
-export default AuthScreen; 
+export default SignInScreen; 
 
 const styles = StyleSheet.create({
+
     container: {
         backgroundColor: '#7FFFD4',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },
+
+    textInput: {
+        alignSelf: 'center',
+        borderWidth: 2,
+        borderColor: THEME, 
+        borderRadius: 4, 
+        width: '80%',
+        height: 40, 
+        paddingHorizontal: 8, 
+        marginBottom: 10
+    },
+
     
     title: {
         fontSize: 35, 
