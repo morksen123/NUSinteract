@@ -60,29 +60,9 @@ const AuthScreen = () => {
 
     return (
         <KeyboardAvoidingView
-<<<<<<< HEAD
-            // change to android? 
-            // style={{ flex:  }}
-=======
->>>>>>> e7dfe0a200c221719a63977ff215aaa3400cbf71
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
             <View style={styles.container}>
-<<<<<<< HEAD
-                <Text>
-                    NUSinteract
-                </Text>
-
-           
-                <Image
-                    source = {require('../assets/splash.png')}
-                    style = {{width: 2000, height: 200}}
-                />
-          
-                
-
-=======
              
                 <Image
                     source = {require('../assets/test.png')}
@@ -93,7 +73,6 @@ const AuthScreen = () => {
                     NUSinteract
                 </Text>
           
->>>>>>> e7dfe0a200c221719a63977ff215aaa3400cbf71
                 <AuthTextInput
                     value={email}
                     placeholder='Your Email'
@@ -144,10 +123,6 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-<<<<<<< HEAD
-        // padding: 100
-=======
->>>>>>> e7dfe0a200c221719a63977ff215aaa3400cbf71
     },
     
     title: {
