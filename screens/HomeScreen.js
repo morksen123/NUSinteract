@@ -1,10 +1,10 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon, { Icons } from '../components/homescreen/Icons';
-import Colors from '../constants/Colors';
-import ColorScreen from '../ColorScreen';
-import * as Animatable from 'react-native-animatable';
+// import Icon, { Icons } from '../components/homescreen/Icons';
+// import Colors from '../constants/Colors';
+// import ColorScreen from '../ColorScreen';
+// import * as Animatable from 'react-native-animatable';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
 }
 
 export default HomeScreen; 
-
+/*
 const TabArr = [
   { route: 'Home', label: 'Home', type: Icons.Ionicons, activeIcon: 'grid', inActiveIcon: 'grid-outline', component: ColorScreen },
   { route: 'Like', label: 'Like', type: Icons.MaterialCommunityIcons, activeIcon: 'heart-plus', inActiveIcon: 'heart-plus-outline', component: ColorScreen },
@@ -89,4 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   }
+  
 })
+
+*/
