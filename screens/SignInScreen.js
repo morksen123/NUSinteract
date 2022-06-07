@@ -41,7 +41,7 @@ const SignInScreen = ({ navigation }) => {
         if (error) {
             Alert.alert('Invalid Email / Password')
         } else {
-            navigation.navigate("Home")
+            navigation.navigate("NavigationTab")
         }
     }
 
@@ -63,7 +63,7 @@ const SignInScreen = ({ navigation }) => {
             <View style={styles.container}>
              
                 <Image
-                    source = {require('../assets/test.png')}
+                    source = {require('../assets/logo.png')}
                     style = {{width: 200, height: 220, bottom: 15}}
                 />
 

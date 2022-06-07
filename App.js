@@ -5,15 +5,18 @@ import HomeScreen from './screens/HomeScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
+import NavigationTab from './navigation/NavigationTab';
+
+
 const Stack = createNativeStackNavigator(); 
 
 const App = () => {
   return (
     <NavigationContainer>  
       <Stack.Navigator>
-        <Stack.Screen name="Auth" component={SignInScreen} options={{header: () => null}}/>
+        <Stack.Screen name="SignIn" component={SignInScreen} options={{header: () => null}}/>
         <Stack.Screen name="SignUp" component={SignUpScreen}/>
-        <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="NavigationTab" component={NavigationTab}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
