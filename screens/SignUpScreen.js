@@ -3,8 +3,6 @@ import {
     Text,
     View,
     Keyboard,
-    KeyboardAvoidingView,
-    Platform, 
     Alert,
     TextInput
 } from 'react-native';
@@ -31,6 +29,7 @@ const SignUpScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [ confirmPassword, setConfirmPassword] = useState('');
+    const [ username, setUsername] = useState('');
 
     // check if sign up passed through
     async function signUpWithEmail() {
@@ -63,49 +62,53 @@ const SignUpScreen = ({ navigation }) => {
     }
     
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
 
-            <View style={styles.container}>
-             
-                <Text style={[styles.title, styles.boldText]}>
-                    Sign Up
-                </Text>
-          
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Email' 
-                    KeyboardType='email-address'
-                    value={email}
-                    onChangeText={setEmail}
-                    selectionColor={THEME}
-                />
+        <View style={styles.container}>
+            
+            <Text style={[styles.title, styles.boldText]}>
+                Sign Up
+            </Text>
+        
+            <TextInput
+                style={styles.textInput}
+                placeholder='Email' 
+                KeyboardType='email-address'
+                value={email}
+                onChangeText={setEmail}
+                selectionColor={THEME}
+            />
 
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Password' 
-                    value={password}
-                    onChangeText={setPassword}
-                    selectionColor={THEME}
-                    secureTextEntry
-                />
+            <TextInput
+                style={styles.textInput}
+                placeholder='Username' 
+                value={username}
+                onChangeText={setUsername}
+                selectionColor={THEME}
+            />
 
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Confirm password' 
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
-                    selectionColor={THEME}
-                    secureTextEntry
-                />
+            <TextInput
+                style={styles.textInput}
+                placeholder='Password' 
+                value={password}
+                onChangeText={setPassword}
+                selectionColor={THEME}
+                secureTextEntry
+            />
 
-                <AuthPressable
-                    onPressHandler={signUpWithEmail}    
-                    title={'Proceed'}
-                />
-            </View>
-        </KeyboardAvoidingView>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Confirm password' 
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                selectionColor={THEME}
+                secureTextEntry
+            />
+
+            <AuthPressable
+                onPressHandler={signUpWithEmail}    
+                title={'Proceed'}
+            />
+        </View>
     )
 }
 

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, Pressable } from "react-native"; 
 
 
-const AuthPressable = ({ onPressHandler, title }) => {
+const HostActivityPressable = ({ onPressHandler, title }) => {
     return (
         <Pressable
             style={styles.button}
@@ -13,23 +13,22 @@ const AuthPressable = ({ onPressHandler, title }) => {
     )
 }
 
-export default AuthPressable; 
+export default HostActivityPressable; 
 
 const styles = StyleSheet.create({
     button: {
         backgroundColor: '#407BFF',
         marginVertical: 5,
-        paddingVertical: 10,
-        width: '80%',
-        height: 40,
+        paddingVertical: 15,
         alignItems: 'center',
+        width: '30%',
+        height: 50,
         borderRadius: 4,
     },
 
-    text: { 
-        color: 'black',
-        fontFamily: "AvenirNext-Italic",
-        fontWeight: '500'
+    text: {
+        fontWeight: '600'
     }
+
 
 });
