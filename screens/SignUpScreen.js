@@ -11,25 +11,21 @@ import AuthPressable from '../components/auth/AuthPressable';
 
 import { useState } from 'react';
 
+import { supabase } from '../utils/supabase';
+
 import { createClient } from '@supabase/supabase-js'
 
 // Not authenticated also added
 
 const THEME = '#3F3F3F';
 
-const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
-const supabaseAnonKey = 
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZW9wZGtrZmhyYWR0bGV6cGlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM0NTIxMTEsImV4cCI6MTk2OTAyODExMX0.MZZovcPnuGFnM2wDyabFZAuL8ei9vZqlfxql4I849wA"
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-
-const SignUpScreen = ({ navigation }) => {
+const SignUpScreen = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [ confirmPassword, setConfirmPassword] = useState('');
-    const [ username, setUsername] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     // check if sign up passed through
     async function signUpWithEmail() {
@@ -41,13 +37,20 @@ const SignUpScreen = ({ navigation }) => {
             Alert.alert("Different passwords")
         
         } else {
-            const { user, error } = await supabase.auth.signUp({ 
-                email: email,
-                password: confirmPassword,
-            }) 
+            const { user, error } = await supabase.auth.signUp(
+                { 
+                    email: email,
+                    password: confirmPassword,
+                },
+                {
+                    data: { 
+                    username: username
+                    }
+                }
+            );   
 
             error ? Alert.alert(error.message) : 
-                Alert.alert("Sign Up Sucessful!")
+                Alert.alert("Sign Up Sucessful!") 
         }
 
         restoreForm(); 
@@ -58,6 +61,7 @@ const SignUpScreen = ({ navigation }) => {
         setEmail(''); 
         setPassword('');
         setConfirmPassword('');
+        setUsername('');
         Keyboard.dismiss(); 
     }
     

@@ -4,11 +4,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Dimensions } from 'react-native';
 
+import DummyScreen from "../screens/DummyScreen";
+
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ActivityListScreen from "../screens/ActivityListScreen";
-
 import HomeHostJoinStack from "./HomeHostJoinStack";
+import HomeScreen from "../screens/HomeScreen";
 
 const fullScreenWidth = Dimensions.get('window').width; 
 

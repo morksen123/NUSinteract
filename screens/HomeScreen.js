@@ -8,8 +8,6 @@ const HomeScreen = ({ navigation }) => {
         <Button title="Join Activity" onPress={() => navigation.navigate("Map")}/>
         <Button title="Host Activity" onPress={() => navigation.navigate("HostActivity")}/>
       </View>
-      
-        
     )
 }
 

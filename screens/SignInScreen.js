@@ -2,7 +2,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Keyboard,
     KeyboardAvoidingView,
     Platform, 
     Alert,
@@ -14,29 +13,22 @@ import { useState } from 'react';
 
 import AuthPressable from '../components/auth/AuthPressable';
 
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '../utils/supabase';
 
 const THEME = '#3F3F3F';
-
-
-const supabaseUrl = "https://aqeopdkkfhradtlezpil.supabase.co"
-const supabaseAnonKey = 
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZW9wZGtrZmhyYWR0bGV6cGlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM0NTIxMTEsImV4cCI6MTk2OTAyODExMX0.MZZovcPnuGFnM2wDyabFZAuL8ei9vZqlfxql4I849wA"
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
 
 const SignInScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // check if possible log in
     async function signInWithEmail() {
         const { user, error } = await supabase.auth.signIn({
             email: email,
             password: password,
         })
+
+        // console.log(supabase.auth.user());
 
         if (error) {
             Alert.alert('Invalid Email / Password')
@@ -45,11 +37,6 @@ const SignInScreen = ({ navigation }) => {
         }
     }
 
-    const restoreForm = () => {
-        setEmail(''); 
-        setPassword('')
-        Keyboard.dismiss(); 
-    }
 
     const navigateToSignUp = () => {
         navigation.navigate("SignUp")
