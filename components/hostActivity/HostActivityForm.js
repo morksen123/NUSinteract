@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 
     container: {
         backgroundColor: 'white',
-        height: '70%',
+        height: '90%',
         justifyContent: 'center',
         alignItems: 'center',
     },
