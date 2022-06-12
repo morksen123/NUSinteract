@@ -10,7 +10,6 @@ import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ActivityListScreen from "../screens/ActivityListScreen";
 import HomeHostJoinStack from "./HomeHostJoinStack";
-import HomeScreen from "../screens/HomeScreen";
 
 const fullScreenWidth = Dimensions.get('window').width; 
 
@@ -45,7 +44,8 @@ const NavigationTab = () => {
                 
                 tabBarActiveTintColor: 'seagreen',
                 tabBarInactiveTintColor: 'black',
-                style: {width: fullScreenWidth}
+                style: {width: fullScreenWidth},
+                headerShown: false 
             })}>
             
             <Tab.Screen name="Home" component={HomeHostJoinStack}/>

@@ -13,9 +13,6 @@ import { useState } from 'react';
 
 import { supabase } from '../utils/supabase';
 
-import { createClient } from '@supabase/supabase-js'
-
-// Not authenticated also added
 
 const THEME = '#3F3F3F';
 
@@ -28,7 +25,7 @@ const SignUpScreen = () => {
     const [username, setUsername] = useState('');
 
     // check if sign up passed through
-    async function signUpWithEmail() {
+    const signUpWithEmail = async () => {
 
         if (!email.includes("@u.nus.edu")) {
             Alert.alert("NUS email required");
@@ -37,7 +34,7 @@ const SignUpScreen = () => {
             Alert.alert("Different passwords")
         
         } else {
-            const { user, error } = await supabase.auth.signUp(
+            const { error } = await supabase.auth.signUp(
                 { 
                     email: email,
                     password: confirmPassword,

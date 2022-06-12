@@ -22,21 +22,17 @@ const SignInScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    async function signInWithEmail() {
-        const { user, error } = await supabase.auth.signIn({
+    const signInWithEmail = async () => {
+        const { error } = await supabase.auth.signIn({
             email: email,
             password: password,
         })
-
-        // console.log(supabase.auth.user());
-
         if (error) {
             Alert.alert('Invalid Email / Password')
         } else {
             navigation.navigate("NavigationTab")
         }
     }
-
 
     const navigateToSignUp = () => {
         navigation.navigate("SignUp")
