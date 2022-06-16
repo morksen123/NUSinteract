@@ -1,13 +1,19 @@
-import { Text, View, Button, Alert } from 'react-native';
+import { Text, View, Button } from 'react-native';
+
 import { supabase } from '../utils/supabase';
+
+import { useContext } from 'react';
+import { UserContext } from '../contexts/userContext';
 
 
 const HomeScreen = ({ navigation }) => {
 
+    const { setUser } = useContext(UserContext);
+    
     const signOutHandler = async () => {
       const { event } = await supabase.auth.signOut()
+      setUser(null)
       console.log(event)
-      navigation.navigate("SignIn")
     } 
     
     return (

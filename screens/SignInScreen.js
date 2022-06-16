@@ -9,9 +9,11 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import AuthPressable from '../components/auth/AuthPressable';
+
+import { UserContext } from '../contexts/userContext';
 
 import { supabase } from '../utils/supabase';
 
@@ -19,19 +21,21 @@ const THEME = '#3F3F3F';
 
 const SignInScreen = ({ navigation }) => {
 
+    const { setUser } = useContext(UserContext); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const signInWithEmail = async () => {
-        const { error } = await supabase.auth.signIn({
+        const { user, error } = await supabase.auth.signIn({
             email: email,
             password: password,
         })
+
+        setUser(user); 
+
         if (error) {
             Alert.alert('Invalid Email / Password')
-        } else {
-            navigation.navigate("NavigationTab")
-        }
+        } 
     }
 
     const navigateToSignUp = () => {
