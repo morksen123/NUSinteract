@@ -1,31 +1,31 @@
+import SignInStack from './navigation/SignInStack';
+import SignOutStack from './navigation/SignOutStack';
+
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from './screens/HomeScreen';
-import SignInScreen from './screens/SignInScreen';
-import SignUpScreen from './screens/SignUpScreen';
+import { UserProvider } from './contexts/userContext';
+import { UserContext } from './contexts/userContext';
+import { useContext } from 'react';
 
-import NavigationTab from './navigation/NavigationTab';
-import DummyScreen from './screens/DummyScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import { supabase } from './utils/supabase';
-
-
-const Stack = createNativeStackNavigator(); 
+const AppWrapper = () => {
+  return (
+    <UserProvider>
+      <App/>
+    </UserProvider>
+  )
+}
 
 const App = () => {
 
+  const { user } = useContext(UserContext); 
+  
   return (
-    <NavigationContainer>  
-      <Stack.Navigator>
-        <Stack.Screen name="SignIn" component={SignInScreen} options={{header: () => null}}/>
-        <Stack.Screen name="SignUp" component={SignUpScreen}/>
-        <Stack.Screen name="NavigationTab" component={NavigationTab} options={{header: () => null}}/>
-      </Stack.Navigator>
+    <NavigationContainer>
+      { user ? <SignInStack/> : <SignOutStack/> } 
     </NavigationContainer>
    );
 }
 
 
-export default App; 
+export default AppWrapper; 
 

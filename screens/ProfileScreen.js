@@ -1,39 +1,46 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, View, Alert, Text } from "react-native";
-import { Button, Input } from "react-native-elements";
-import { supabase } from '../utils/supabase';
+import { useState, useContext } from "react";
+import { StyleSheet, View } from "react-native";
 
+import { Modal, Portal, Text, Button, Provider } from 'react-native-paper';
 
+import ProfileForm from "../components/profile/ProfileForm";
 
-export default function ProfileScreen() {
-  const [user, setUser] = useState("");
+import { UserContext } from "../contexts/userContext";
 
-  const [session, setSession] = useState(null);
+const ProfileScreen = () => {
+    
+  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const session = supabase.auth.session(); 
-    setSession(session)
-    setUser(session?.user ?? null);
+  const { user } = useContext(UserContext)
 
-    const { data: authListender } = supabase.auth.onAuthStateChange(
-        (event, session) => {
-            console.log(event)
-            setSession(session)
-            setUser(session?.user ?? null);
-        })
+  console.log(user)
 
-        return () => {
-            authListender.unsubscribe();
-        }
-  }, [])
-  console.log(session)
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = {backgroundColor: 'white', padding: 20};
 
   return (
+    <Provider>
+    <Portal>
+      <Modal visible={visible} contentContainerStyle={containerStyle}>
+        <ProfileForm 
+          onPressHandler={hideModal}
+        />
+      </Modal>
+    </Portal>
+
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{session ? user.user_metadata.username : 'nothing'}</Text>
+        <Text>Username: {user.user_metadata.username}  </Text>
+        <Button style={{marginTop: 30}} onPress={showModal}>
+        Update Status 
+        </Button>
     </View>
+
+  </Provider>
   );
 }
+
+export default ProfileScreen; 
 
 
 const styles = StyleSheet.create({

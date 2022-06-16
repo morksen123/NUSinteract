@@ -12,7 +12,7 @@ import HostActivityPressable from './HostActivityPressable';
 const THEME = '#3F3F3F';
 
 
-const HostActivityForm = ( { onPressHandler }) => {
+const HostActivityForm = ({ onPressHandler }) => {
 
     const [time, setTime] = useState('');
     const [location, setLocation] = useState('');

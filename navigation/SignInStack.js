@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Dimensions } from 'react-native';
 
-import DummyScreen from "../screens/DummyScreen";
-
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ActivityListScreen from "../screens/ActivityListScreen";
@@ -16,7 +14,7 @@ const fullScreenWidth = Dimensions.get('window').width;
 const Tab = createBottomTabNavigator(); 
 
 
-const NavigationTab = () => {
+const SignInStack = () => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -56,4 +54,4 @@ const NavigationTab = () => {
     )
 }
 
-export default NavigationTab; 
+export default SignInStack;
