@@ -8,7 +8,7 @@ const HostActivityScreen = () => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20};
+  const containerStyle = {backgroundColor: 'white', padding: 20, flex: 1};
 
   return (
     <Provider>
