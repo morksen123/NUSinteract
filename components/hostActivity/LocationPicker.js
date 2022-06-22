@@ -2,8 +2,9 @@ import { useEffect, useState} from 'react';
 import { Image, Text, Alert, View, StyleSheet} from 'react-native';
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
 import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
-import OutlinedButton from '../Buttons/OutlinedButton';
 import { getMapPreview } from '../map/location';
+
+import OutlinedButton from '../Buttons/OutlinedButton';
 
 function LocationPicker() {
     const navigation = useNavigation();
