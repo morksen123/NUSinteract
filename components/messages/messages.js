@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { Text } from "react-native-paper";
+import { current } from "@reduxjs/toolkit";
 
 const Messages = () => {
 
@@ -13,7 +14,20 @@ const Messages = () => {
         }
         
         getData()
-    }, [messages])
+    }, [])
+
+    useEffect(() => {
+        const subscription = supabase
+            .from('messages')
+            .on('INSERT', (payload) => {
+                setMessages((current) => [...current, payload.new])
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeSubscription(subscription)
+        }
+    }, [])
 
     return (
         messages.map((message) =>
