@@ -20,7 +20,7 @@ const THEME = '#3F3F3F';
 
 const HostActivityForm = ({ onPressHandler }) => {
 
-
+    const [enteredTitle, setTitle] = useState('');
     const [enteredTime, setTime] = useState('');
     const [enteredDetails, setDetails] = useState('');    
     const [pickedLocation, setPickedLocation] = useState();
@@ -50,6 +50,11 @@ const HostActivityForm = ({ onPressHandler }) => {
         console.log(pickedLocation);
     }
 
+        
+    function changeTitleHandler(enteredTitle) {
+        setTitle(enteredTitle);
+    }
+
     function changeTimeHandler(enteredTime) {
         setTime(enteredTime);
     }
@@ -66,6 +71,20 @@ const HostActivityForm = ({ onPressHandler }) => {
         <ScrollView>
 
             <View style={styles.container}>
+                <Text>
+                    Activity Name
+                </Text>
+                <View style = {styles.pad}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='e.g MAHJONG SESSION' 
+                        value={enteredTitle}
+                        onChangeText={changeTitleHandler}
+                        selectionColor={THEME}
+                    />
+                
+                </View>
+
                 <Text>
                     Time Of Activity
                 </Text>
@@ -107,10 +126,9 @@ const HostActivityForm = ({ onPressHandler }) => {
 
                     <HostActivityPressable  
                     title={'Cancel'}
-                    onPressHandler={HostActivityHandler}
+                    onPressHandler={onPressHandler}
                     />
                 </View>
-   
 
             </View>
         </ScrollView>
