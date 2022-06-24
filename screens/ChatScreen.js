@@ -28,6 +28,7 @@ const ChatScreen = () => {
 
             //  console.log({ error, data })
     }
+    
     return (
         <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
             <Text>Chat Screen</Text>
