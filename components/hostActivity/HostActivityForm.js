@@ -4,10 +4,13 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import HostActivityPressable from './HostActivityPressable';
 
+import { UserContext } from '../../contexts/userContext';
+
+import { supabase } from '../../utils/supabase';
 
 const THEME = '#3F3F3F';
 
@@ -17,6 +20,25 @@ const HostActivityForm = ({ onPressHandler }) => {
     const [time, setTime] = useState('');
     const [location, setLocation] = useState('');
     const [details, setDetails] = useState('');
+
+    const { user } = useContext(UserContext) ;
+
+    const onConfirmHandler = async () => {
+        const { data, error } = await supabase
+            .from('hostActivity')
+            .insert([
+                {
+                    user_id: user.id,
+                    activity: {
+                        name: 'Entertainment',
+                        pax: 2
+                    }
+
+                }
+            ])
+
+            console.log({data, error})
+    }
     
 
     return (
@@ -49,6 +71,7 @@ const HostActivityForm = ({ onPressHandler }) => {
 
             <HostActivityPressable  
                 title={'Confirm'}
+                onPressHandler={onConfirmHandler}
             />
 
             <HostActivityPressable  

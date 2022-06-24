@@ -4,9 +4,13 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import HostActivityPressable from '../hostActivity/HostActivityPressable';
+
+import { supabase } from '../../utils/supabase';
+
+import { UserContext } from '../../contexts/userContext';
 
 const THEME = '#3F3F3F';
 
@@ -14,6 +18,20 @@ const THEME = '#3F3F3F';
 const ProfileForm = ({ onPressHandler }) => {
 
     const [details, setDetails] = useState('');
+
+    const { user } = useContext(UserContext);
+
+    const onUpdateHandler = async () => {
+
+        const { error, data } = await supabase
+            .from('users')
+            .insert({ 
+                status: details,
+                user_id: user.id
+             })
+
+            //  console.log({ error, data })
+    }
     
 
     return (
@@ -30,6 +48,7 @@ const ProfileForm = ({ onPressHandler }) => {
 
             <HostActivityPressable  
                 title={'Update'}
+                onPressHandler={onUpdateHandler}
             />
 
             <HostActivityPressable  

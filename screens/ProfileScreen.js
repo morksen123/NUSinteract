@@ -1,23 +1,40 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { Modal, Portal, Text, Button, Provider } from 'react-native-paper';
 
 import ProfileForm from "../components/profile/ProfileForm";
 
+import Avatar from '../components/profile/Avatar';
+
+import { supabase } from "../utils/supabase";
+
 import { UserContext } from "../contexts/userContext";
+
 
 const ProfileScreen = () => {
     
   const [visible, setVisible] = useState(false);
+  const [details, setDetails] = useState('--empty--')
 
   const { user } = useContext(UserContext)
 
-  console.log(user)
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 20};
 
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
-    const containerStyle = {backgroundColor: 'white', padding: 20};
+  useEffect(() => {
+    const getDetails = async () => {
+      const { error, data } = await supabase
+        .from('users')
+        .select('status')
+        .eq('id', user.id)
+
+        data.map(data => setDetails(data.status))
+    }
+
+    getDetails();
+  }, [])
 
   return (
     <Provider>
@@ -31,10 +48,15 @@ const ProfileScreen = () => {
 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Username: {user.user_metadata.username}  </Text>
+        <Text>About me: {details} </Text>
         <Button style={{marginTop: 30}} onPress={showModal}>
         Update Status 
         </Button>
     </View>
+
+    <Avatar/>
+
+    
 
   </Provider>
   );
