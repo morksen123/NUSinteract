@@ -1,62 +1,115 @@
-import { 
+import {
+    ScrollView, 
     StyleSheet,
     View,
+    Text,
     TextInput,
 } from 'react-native';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import HostActivityPressable from './HostActivityPressable';
+import LocationPicker from './LocationPicker';
 
+import { UserContext } from '../../contexts/userContext';
+
+import { supabase } from '../../utils/supabase';
 
 const THEME = '#3F3F3F';
 
 
 const HostActivityForm = ({ onPressHandler }) => {
 
-    const [time, setTime] = useState('');
+
+    const [enteredTime, setTime] = useState('');
+    const [enteredDetails, setDetails] = useState('');
+
+    
     const [location, setLocation] = useState('');
-    const [details, setDetails] = useState('');
     
 
+    const { user } = useContext(UserContext) ;
+
+    const onConfirmHandler = async () => {
+        const { data, error } = await supabase
+            .from('hostActivity')
+            .insert([
+                {
+                    user_id: user.id,
+                    activity: {
+                        name: 'Entertainment',
+                        pax: 2
+                    }
+
+                }
+            ])
+
+            console.log({data, error})
+    }
+
+    
+    function changeTimeHandler(enteredTime) {
+        setTime(enteredTime);
+    }
+    function changeDetailsHandler(enteredDetails) {
+        setDetails(enteredDetails);
+    }
+
+
+
     return (
+        <ScrollView>
 
-        <View style={styles.container}>
+            <View style={styles.container}>
+                <Text>
+                    Time Of Activity
+                </Text>
+                <View style = {styles.pad}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='e.g 2pm' 
+                        value={enteredTime}
+                        onChangeText={changeTimeHandler}
+                        selectionColor={THEME}
+                    />
+             
+                </View>
+                <Text>
+                    Additional Details About Activity
+                </Text>
+                <View style = {styles.pad}>
+                    <TextInput
+                        style={styles.additionalDetails}
+                        placeholder='e.g Basketball Session, 4 Pax' 
+                        value={enteredDetails}
+                        onChangeText={changeDetailsHandler}
+                        selectionColor={THEME}
+                    />
 
-            <TextInput
-                style={styles.textInput}
-                placeholder='Time; e.g 1pm' 
-                value={time}
-                onChangeText={setTime}
-                selectionColor={THEME}
-            />
+                </View>
+                <Text >
+                    Location Of Activity
+                </Text>
 
-            <TextInput
-                style={styles.textInput}
-                placeholder='Location' 
-                value={location}
-                onChangeText={setLocation}
-                selectionColor={THEME}
-            />
+                <View style = {styles.padlocation} >
+                    <LocationPicker/>
+                </View>
 
-            <TextInput
-                style={styles.additionalDetails}
-                placeholder='Additional details' 
-                value={details}
-                onChangeText={setDetails}
-                selectionColor={THEME}
-            />
+                <View style = {styles.buttons}>             
+                    <HostActivityPressable  
+                    title={'Host Activity'}
+                    />
 
-            <HostActivityPressable  
-                title={'Confirm'}
-            />
+                    <HostActivityPressable  
+                    title={'Cancel'}
+                    onPressHandler={onPressHandler}
+                    />
+                </View>
+   
 
-            <HostActivityPressable  
-                title={'Cancel'}
-                onPressHandler={onPressHandler}
-            />
+            </View>
+        </ScrollView>
 
-        </View>
     )
 }
 
@@ -66,9 +119,22 @@ const styles = StyleSheet.create({
 
     container: {
         backgroundColor: 'white',
-        height: '90%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 10,
+        
+    },
+
+    pad: {
+        paddingTop:10,
+        paddingBottom:10,
+        width: "100%"
+    },
+
+    padlocation: {
+        paddingTop:10,
+        width: "100%"
     },
 
     textInput: {
@@ -92,5 +158,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8, 
         marginBottom: 10
 
+    },
+
+    buttons : {
+        flexDirection: 'row'
     }
 });
