@@ -18,7 +18,7 @@ export default HostActivityPressable;
 const styles = StyleSheet.create({
     button: {
         backgroundColor: '#407BFF',
-        marginVertical: 5,
+        marginHorizontal: 10,
         paddingVertical: 15,
         alignItems: 'center',
         width: '30%',
