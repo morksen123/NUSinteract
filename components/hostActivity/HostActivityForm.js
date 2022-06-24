@@ -6,19 +6,47 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import HostActivityPressable from './HostActivityPressable';
 import LocationPicker from './LocationPicker';
 
+import { UserContext } from '../../contexts/userContext';
+
+import { supabase } from '../../utils/supabase';
 
 const THEME = '#3F3F3F';
 
 
 const HostActivityForm = ({ onPressHandler }) => {
 
+
     const [enteredTime, setTime] = useState('');
     const [enteredDetails, setDetails] = useState('');
+
+    
+    const [location, setLocation] = useState('');
+    
+
+    const { user } = useContext(UserContext) ;
+
+    const onConfirmHandler = async () => {
+        const { data, error } = await supabase
+            .from('hostActivity')
+            .insert([
+                {
+                    user_id: user.id,
+                    activity: {
+                        name: 'Entertainment',
+                        pax: 2
+                    }
+
+                }
+            ])
+
+            console.log({data, error})
+    }
+
     
     function changeTimeHandler(enteredTime) {
         setTime(enteredTime);
@@ -26,6 +54,7 @@ const HostActivityForm = ({ onPressHandler }) => {
     function changeDetailsHandler(enteredDetails) {
         setDetails(enteredDetails);
     }
+
 
 
     return (
@@ -80,6 +109,7 @@ const HostActivityForm = ({ onPressHandler }) => {
 
             </View>
         </ScrollView>
+
     )
 }
 

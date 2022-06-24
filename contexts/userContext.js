@@ -13,11 +13,12 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const session = supabase.auth.session(); 
-        session ? setUser(session.user) : setUser(null)
-    
+        // session ? setUser(session.user) : setUser(null)
+        
         const { data: authListender } = supabase.auth.onAuthStateChange(
             (session) => {
                 session ? setUser(session.user) : null; 
+                console.log(session)
             })
     
             return () => {
