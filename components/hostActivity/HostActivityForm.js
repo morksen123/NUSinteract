@@ -6,7 +6,7 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import HostActivityPressable from './HostActivityPressable';
 import LocationPicker from './LocationPicker';
@@ -22,11 +22,8 @@ const HostActivityForm = ({ onPressHandler }) => {
 
 
     const [enteredTime, setTime] = useState('');
-    const [enteredDetails, setDetails] = useState('');
-
-    
-    const [location, setLocation] = useState('');
-    
+    const [enteredDetails, setDetails] = useState('');    
+    const [pickedLocation, setPickedLocation] = useState();
 
     const { user } = useContext(UserContext) ;
 
@@ -47,7 +44,12 @@ const HostActivityForm = ({ onPressHandler }) => {
             console.log({data, error})
     }
 
-    
+    function HostActivityHandler() {
+        console.log(enteredTime);
+        console.log(enteredDetails);
+        console.log(pickedLocation);
+    }
+
     function changeTimeHandler(enteredTime) {
         setTime(enteredTime);
     }
@@ -55,6 +57,9 @@ const HostActivityForm = ({ onPressHandler }) => {
         setDetails(enteredDetails);
     }
 
+    const pickLocationHandler = useCallback ((location) => {
+        setPickedLocation(location);
+    }, []);
 
 
     return (
@@ -92,17 +97,17 @@ const HostActivityForm = ({ onPressHandler }) => {
                 </Text>
 
                 <View style = {styles.padlocation} >
-                    <LocationPicker/>
+                    <LocationPicker onPickLocation = {pickLocationHandler}/>
                 </View>
 
                 <View style = {styles.buttons}>             
                     <HostActivityPressable  
                     title={'Host Activity'}
-                    />
+                    onPressHandler = {HostActivityHandler}/>
 
                     <HostActivityPressable  
                     title={'Cancel'}
-                    onPressHandler={onPressHandler}
+                    onPressHandler={HostActivityHandler}
                     />
                 </View>
    
