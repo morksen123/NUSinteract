@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 
@@ -44,7 +44,7 @@ const MapScreen = () => {
                 'user_id': user.id,
                 'activity_id': activityID
             }])
-        console.log({data, error})
+        // console.log({data, error})
         
     }
 
@@ -63,14 +63,17 @@ const MapScreen = () => {
                     title={marker.activity_details.title}
                     description = {marker.activity_details.details}
                 >
-                    <Callout tooltip onPress={() => onPressMarkerHandler(marker.activity_id)}>
+                    <Callout tooltip>
                         <View style={styles.bubble}>
                             <Text>{marker.activity_details.title}</Text>
                             <Text>{marker.activity_details.time}</Text>
                             <Text>{marker.activity_details.location_details}</Text>
+                            <Button
+                                onPress={onPressMarkerHandler(marker.activity_id)}
+                                title="JOIN ACTIVITY"
+                            /> 
                         </View>
                     </Callout>
-                    
                 </Marker>
             ))}
         </MapView>  
@@ -93,6 +96,6 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 0.5,
         padding: 15,
-    }
+    },
 
 });
