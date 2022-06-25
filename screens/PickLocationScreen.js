@@ -31,7 +31,8 @@ const PickLocationScreen = ({navigation}) => {
             );
             return;
         }
-
+        
+        
         navigation.navigate('HostActivity', {
             pickedLat: selectedLocation.lat,
             pickedLng: selectedLocation.lng

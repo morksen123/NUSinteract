@@ -38,5 +38,4 @@ const styles = StyleSheet.create({
         color: '#407BFF'
     }
 
-
 });
