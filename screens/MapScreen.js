@@ -1,11 +1,36 @@
+import { useContext, useEffect, useState } from 'react';
+
 import { StyleSheet, Text, View } from 'react-native';
 
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { UserContext } from '../contexts/userContext';
+
+import { supabase } from '../utils/supabase';
+
 
 
 
 const MapScreen = () => {
+
+    const [data, setData] = useState([])
+
+    const { user } = useContext(UserContext);
+
+    useEffect(() => {
+        const getData = async () => {
+            const {error, data} = await supabase
+                .from('hostActivity')
+                .select('*')
+        
+                // console.log(data)
+                setData(data)
+        }
+
+        getData();
+
+    }, [])
+
     const region = {
         latitude: 1.29692,  //preview of NUS MAP
         longitude: 103.77651 ,
@@ -13,17 +38,21 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    // TO BE REPLACED BY FETCHED DATE FROM DATABASE
-    const DEMODATA = { appusers: [
-        {id: 1, user: "A", time: "2pm", additionaldetails: "AAAA", location: {lat: 1.29493165020572, lng: 103.7736465889889}, address: "SOC" },
-        {id: 2, user: "B", time: "10am", additionaldetails: "BBBB", location: {lat: 1.3001989691076348 , lng: 103.77361624622463}, address: "Raffles Hall" },
-        {id: 3, user: "C", time: "5pm", additionaldetails: "CCCC", location: {lat: 1.2929022143422442, lng: 103.77134573197812}, address: "Temasek Hall" }
-
-    ]};
+    const onPressMarkerHandler = async (activityID) => {
+        
+        let { data, error } = await supabase
+            .from('joinActivity')
+            .insert([{
+                'user_id': user.id,
+                'activity_id': activityID
+            }])
+        console.log({data, error})
+        
+    }
 
 
    // TO BE REPLACED BY FETCHED DATE FROM DATABASE
-    this.state = {
+    const state = {
         markers: [{
             user: "A",
             time: "2pm",
@@ -83,17 +112,21 @@ const MapScreen = () => {
 
     return (
         <MapView 
-        style={styles.map}
-        initialRegion = {region}
-        provider = {PROVIDER_GOOGLE}
+            style={styles.map}
+            initialRegion = {region}
+            provider = {PROVIDER_GOOGLE}
         >
-           {this.state.markers.map((marker,index) => (
-                <MapView.Marker
-                key = {index} 
-                coordinate={marker.coordinates}
-                title={marker.title}
-                description = {marker.additionaldetails}
-                />
+           {data.map((marker,index) => (
+
+                <Marker
+                    key={marker.activity_id} 
+                    coordinate={marker.coordinates}
+                    title={marker.activity_details.title}
+                    description = {marker.activity_details.details}
+                >
+                    <Callout onPress={() => onPressMarkerHandler(marker.activity_id)}/>
+                    
+                </Marker>
             ))}
         </MapView>  
     )
