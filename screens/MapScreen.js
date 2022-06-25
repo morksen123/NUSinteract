@@ -9,8 +9,6 @@ import { UserContext } from '../contexts/userContext';
 import { supabase } from '../utils/supabase';
 
 
-
-
 const MapScreen = () => {
 
     const [data, setData] = useState([])
@@ -19,11 +17,11 @@ const MapScreen = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const {error, data} = await supabase
+            const { error, data } = await supabase
                 .from('hostActivity')
                 .select('*')
         
-                // console.log(data)
+                console.log(data)
                 setData(data)
         }
 
@@ -124,7 +122,13 @@ const MapScreen = () => {
                     title={marker.activity_details.title}
                     description = {marker.activity_details.details}
                 >
-                    <Callout onPress={() => onPressMarkerHandler(marker.activity_id)}/>
+                    <Callout tooltip onPress={() => onPressMarkerHandler(marker.activity_id)}>
+                        <View style={styles.bubble}>
+                            <Text>{marker.activity_details.title}</Text>
+                            <Text>{marker.activity_details.time}</Text>
+                            <Text>{marker.activity_details.location_details}</Text>
+                        </View>
+                    </Callout>
                     
                 </Marker>
             ))}
@@ -138,6 +142,16 @@ export default MapScreen;
 const styles = StyleSheet.create({
     map: {
         flex:1
+    },
+
+    bubble: {
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        backgroundColor: '#fff',
+        borderRadius: 6,
+        borderColor: '#ccc',
+        borderWidth: 0.5,
+        padding: 15,
     }
 
 });

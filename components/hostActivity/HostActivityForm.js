@@ -135,7 +135,7 @@ const HostActivityForm = ({ onPressHandler }) => {
                 </Text>
 
                 <View style = {styles.padlocation} >
-                    <LocationPicker onPickLocation = {pickLocationHandler}/>
+                    <LocationPicker onPickLocation={pickLocationHandler}/>
                 </View>
 
                 <View style = {styles.buttons}>             
