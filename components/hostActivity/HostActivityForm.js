@@ -44,10 +44,29 @@ const HostActivityForm = ({ onPressHandler }) => {
             console.log({data, error})
     }
 
-    function HostActivityHandler() {
-        console.log(enteredTime);
-        console.log(enteredDetails);
-        console.log(pickedLocation);
+    async function HostActivityHandler() {
+        // console.log(enteredTitle);
+        // console.log(enteredTime);
+        // console.log(enteredDetails);
+        // console.log(pickedLocation);
+
+        const { data, error } = await supabase
+            .from('hostActivity')
+            .insert([{
+                user_id: user.id,
+                coordinates: {
+                    latitude: pickedLocation.lat, 
+                    longitude: pickedLocation.lng
+                },
+                activity_details: {
+                    title: enteredTitle,
+                    time: enteredTime,
+                    details: enteredDetails,  
+                    location_details: pickedLocation.address,
+                }
+            }])
+
+            console.log({data, error})
     }
 
         
