@@ -36,7 +36,7 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    const onPressMarkerHandler = async (activityID) => {
+    const onPressMarkerHandler = async (activityID) => { //join activity handler
         
         let { data, error } = await supabase
             .from('joinActivity')
@@ -44,7 +44,7 @@ const MapScreen = () => {
                 'user_id': user.id,
                 'activity_id': activityID
             }])
-        // console.log({data, error})
+        //console.log({data, error})
         
     }
 
@@ -68,6 +68,7 @@ const MapScreen = () => {
                             <Text>{marker.activity_details.title}</Text>
                             <Text>{marker.activity_details.time}</Text>
                             <Text>{marker.activity_details.location_details}</Text>
+                            <Text>{marker.activity_details.details}</Text>
                             <Button
                                 onPress={onPressMarkerHandler(marker.activity_id)}
                                 title="JOIN ACTIVITY"
