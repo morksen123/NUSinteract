@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+
+import { Button, StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 
 import { useContext, useState, useEffect } from 'react';
 
@@ -12,11 +13,12 @@ const ActivityListScreen = () => {
     
     const { user } = useContext(UserContext);
 
-    const [data, setData] = useState()
+
+    const [data, setData] = useState(null)
 
     useEffect(() => {
         const getData = async () => {
-            const { error, data } = await supabase
+            const { data, error } = await supabase
                 .from('joinActivity')
                 .select(`
                     activity_id,
@@ -26,8 +28,6 @@ const ActivityListScreen = () => {
                 `)
                 .eq('user_id', user.id)
 
-                console.log({ error, data })
-
                 setData(data)
         }
 
@@ -36,54 +36,84 @@ const ActivityListScreen = () => {
     }, [])
 
 
-    // async function leaveActivityHandler() {
+    function leaveActivityHandler() {
 
-    //     const { error, data } = await supabase
-    //          .from('joinActivity')
-    //          .delete()
-    //          .match({ user_id: user.id, activity_id: key })
+        // const { error, data } = await supabase
+        //      .from('joinActivity')
+        //      .delete()
+        //      .match({ user_id: user.id, activity_id: key })
         
-    //     console.log({ error, data }); 
+        // console.log({ error, data }); 
 
+        return;
+
+    }
+
+    // const hero ={
+    //     name: 'Batman'
+    // };
+
+    // function testfunction() {
+    //     console.log(data)
+    //     console.log(data[0])
+    //     console.log(hero)
+    //     console.log(hero.name)
+    //     console.log(typeof hero)
+    //     console.log(data[0]['hostActivity']['activity_details']['title'])
     // }
 
-    return (
+    //data is an array of objects
 
-        data ? 
+    if (!data) {
+        return (
+            <View style = {styles.container}>
+                <Text> List Of Joined Activities </Text>
+                <Text> You have not joined any activities yet! </Text>               
+            </View>
+        )
+ 
+    }
+
+
+    return (
+        // <View style = { {flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        //     <Text> Hello </Text>
+        // </View>
+
         
         <ScrollView>
             <SafeAreaView>
                 <View style={styles.container}>
                     <View style ={styles.title}>
                         <Text> List Of Joined Activities </Text>
+                        <Text> You have not joined any activities yet! </Text>
                     </View>
-                     
-                    <View>
 
+                    <View>
                         {data.map((activity) => (
 
-                            <View styles={styles.activity} key={activity.activity_id}> 
+                            <View styles={styles.activity}> 
                                 <View style={styles.paddingTop}>
                                     <Text> 
-                                        Activity Title: {activity.hostActivity.activity_details.title} 
+                                        Activity Title: {activity['hostActivity']['activity_details']['title']} 
                                     </Text>
                                 </View>
 
                                 <View> 
                                     <Text> 
-                                        Time: {activity.hostActivity.activity_details.time} 
+                                        Time: {activity['hostActivity']['activity_details']['time']} 
                                     </Text>
                                 </View>
 
                                 <View>
                                     <Text> 
-                                        Details: {activity.hostActivity.activity_details.details} 
+                                        Details: {activity['hostActivity']['activity_details']['details']} 
                                     </Text>
                                 </View>
 
                                 <View style= {styles.paddingBottom}>
                                     <Text> 
-                                        Location: {activity.hostActivity.activity_details.location_details} 
+                                        Location: {activity['hostActivity']['activity_details']['location_details']} 
                                     </Text>
                                 </View>
 
@@ -96,19 +126,14 @@ const ActivityListScreen = () => {
                         
                             </View>
 
-                        ))} 
-                    </View> 
+                        ))}
+                    </View>
 
 
                 </View>
             </SafeAreaView>
-        </ScrollView>  : 
-        <View style = {styles.flex}>
-            <Text>
-                hello
-            </Text>
-        </View>
-    )
+        </ScrollView>  
+     )
 }
 
 export default ActivityListScreen; 
@@ -144,10 +169,6 @@ const styles = StyleSheet.create({
 
     paddingBottom: {
         paddingBottom: 30
-    },
-
-    flex: {
-        flex:1
     }
 
 });

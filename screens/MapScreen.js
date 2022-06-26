@@ -29,6 +29,7 @@ const MapScreen = () => {
 
     }, [])
 
+
     const region = {
         latitude: 1.29692,  //preview of NUS MAP
         longitude: 103.77651 ,
@@ -36,7 +37,7 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    const onPressMarkerHandler = async (activityID) => {
+    const onPressMarkerHandler = async (activityID) => { //join activity handler
         
         let { data, error } = await supabase
             .from('joinActivity')
@@ -44,30 +45,33 @@ const MapScreen = () => {
                 'user_id': user.id,
                 'activity_id': activityID
             }])
-        // console.log({data, error})
+
+        
+
+        //console.log({data, error})
+
         
     }
 
-
+// bug 
     return (
         <MapView 
             style={styles.map}
             initialRegion = {region}
             provider = {PROVIDER_GOOGLE}
         >
-           {data.map((marker,index) => (
+           {data.map((marker) => (
 
                 <Marker
                     key={marker.activity_id} 
                     coordinate={marker.coordinates}
-                    title={marker.activity_details.title}
-                    description = {marker.activity_details.details}
                 >
                     <Callout tooltip>
                         <View style={styles.bubble}>
                             <Text>{marker.activity_details.title}</Text>
                             <Text>{marker.activity_details.time}</Text>
                             <Text>{marker.activity_details.location_details}</Text>
+                            <Text>{marker.activity_details.details}</Text>
                             <Button
                                 onPress={onPressMarkerHandler(marker.activity_id)}
                                 title="JOIN ACTIVITY"
