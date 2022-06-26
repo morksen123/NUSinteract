@@ -37,7 +37,7 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    const onPressMarkerHandler = async (activityID) => {
+    const onPressMarkerHandler = async (activityID) => { //join activity handler
         
         let { data, error } = await supabase
             .from('joinActivity')
@@ -45,7 +45,11 @@ const MapScreen = () => {
                 'user_id': user.id,
                 'activity_id': activityID
             }])
-        console.log('APPLE')
+
+        
+
+        //console.log({data, error})
+
         
     }
 
