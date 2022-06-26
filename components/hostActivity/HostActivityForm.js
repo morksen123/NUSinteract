@@ -27,28 +27,7 @@ const HostActivityForm = ({ onPressHandler }) => {
 
     const { user } = useContext(UserContext) ;
 
-    const onConfirmHandler = async () => {
-        const { data, error } = await supabase
-            .from('hostActivity')
-            .insert([
-                {
-                    user_id: user.id,
-                    activity: {
-                        name: 'Entertainment',
-                        pax: 2
-                    }
-
-                }
-            ])
-
-            console.log({data, error})
-    }
-
     async function HostActivityHandler() {
-        // console.log(enteredTitle);
-        // console.log(enteredTime);
-        // console.log(enteredDetails);
-        // console.log(pickedLocation);
 
         const { data, error } = await supabase
             .from('hostActivity')
@@ -67,6 +46,7 @@ const HostActivityForm = ({ onPressHandler }) => {
             }])
 
             console.log({data, error})
+            onPressHandler();
     }
 
         

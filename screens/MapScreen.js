@@ -8,8 +8,11 @@ import { UserContext } from '../contexts/userContext';
 
 import { supabase } from '../utils/supabase';
 
+import { Surface } from 'react-native-paper';
+import { NavigationHelpersContext } from '@react-navigation/native';
 
-const MapScreen = () => {
+
+const MapScreen = ({navigation}) => {
 
     const [data, setData] = useState([])
 
@@ -21,7 +24,7 @@ const MapScreen = () => {
                 .from('hostActivity')
                 .select('*')
         
-                console.log(data)
+                // console.log(data)
                 setData(data)
         }
 
@@ -37,23 +40,24 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    const onPressMarkerHandler = async (activityID) => { //join activity handler
+    function onPressMarkerHandler(activityID) { 
         
-        let { data, error } = await supabase
-            .from('joinActivity')
-            .insert([{
-                'user_id': user.id,
-                'activity_id': activityID
-            }])
-
+        //join activity handler
+        const joinActivity = async () => {
         
+            const { data, error } = await supabase
+                .from('joinActivity')
+                .insert([{
+                    'user_id': user.id,
+                    'activity_id': activityID
+                }])
+        }
 
-        //console.log({data, error})
+        joinActivity()
 
-        
+        navigation.navigate("Activities")
     }
 
-// bug 
     return (
         <MapView 
             style={styles.map}
@@ -66,16 +70,12 @@ const MapScreen = () => {
                     key={marker.activity_id} 
                     coordinate={marker.coordinates}
                 >
-                    <Callout tooltip>
+                    <Callout tooltip onPress={() => onPressMarkerHandler(marker.activity_id)}>
                         <View style={styles.bubble}>
                             <Text>{marker.activity_details.title}</Text>
                             <Text>{marker.activity_details.time}</Text>
                             <Text>{marker.activity_details.location_details}</Text>
-                            <Text>{marker.activity_details.details}</Text>
-                            <Button
-                                onPress={onPressMarkerHandler(marker.activity_id)}
-                                title="JOIN ACTIVITY"
-                            /> 
+                            <Text>{marker.activity_details.details}</Text> 
                         </View>
                     </Callout>
                 </Marker>
@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 0.5,
         padding: 15,
+        borderColor: 'blue'
     },
-
 });

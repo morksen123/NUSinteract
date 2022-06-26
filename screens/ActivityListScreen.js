@@ -33,36 +33,28 @@ const ActivityListScreen = () => {
 
         getData();
 
-    }, [])
+    }, [data])
 
 
-    function leaveActivityHandler() {
+    function leaveActivityHandler(key) {
 
-        // const { error, data } = await supabase
-        //      .from('joinActivity')
-        //      .delete()
-        //      .match({ user_id: user.id, activity_id: key })
-        
+
+        //NEED TO RELOOK WHETHER IT SYNCS TO DATABASE
+        const deleteData = async () => {
+            const { error, data } = await supabase
+                .from('joinActivity')
+                .delete()
+                .match({ user_id: user.id, activity_id: key })
+        }
+
         // console.log({ error, data }); 
-
-        return;
+        const temp = data.filter((activity) => activity['activity_id'] !== key)
+        setData(temp);
+        deleteData()  
+      
 
     }
 
-    // const hero ={
-    //     name: 'Batman'
-    // };
-
-    // function testfunction() {
-    //     console.log(data)
-    //     console.log(data[0])
-    //     console.log(hero)
-    //     console.log(hero.name)
-    //     console.log(typeof hero)
-    //     console.log(data[0]['hostActivity']['activity_details']['title'])
-    // }
-
-    //data is an array of objects
 
     if (!data) {
         return (
@@ -72,8 +64,9 @@ const ActivityListScreen = () => {
             </View>
         )
  
-    }
+    } 
 
+    
 
     return (
         // <View style = { {flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -86,13 +79,12 @@ const ActivityListScreen = () => {
                 <View style={styles.container}>
                     <View style ={styles.title}>
                         <Text> List Of Joined Activities </Text>
-                        <Text> You have not joined any activities yet! </Text>
                     </View>
 
                     <View>
                         {data.map((activity) => (
 
-                            <View styles={styles.activity}> 
+                            <View styles={styles.activity} key={activity['activity_id']}> 
                                 <View style={styles.paddingTop}>
                                     <Text> 
                                         Activity Title: {activity['hostActivity']['activity_details']['title']} 
@@ -119,13 +111,13 @@ const ActivityListScreen = () => {
 
                                 <OutlinedButton 
                                     icon="log-out-outline" 
-                                    onPress={leaveActivityHandler}
+                                    onPress={() => leaveActivityHandler(activity['activity_id'])}
                                 > 
                                     Leave Activity 
                                 </OutlinedButton>
                         
                             </View>
-
+                    
                         ))}
                     </View>
 

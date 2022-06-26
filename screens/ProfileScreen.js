@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 
 import { Modal, Portal, Text, Button, Provider } from 'react-native-paper';
 
@@ -11,11 +11,20 @@ import { supabase } from "../utils/supabase";
 
 import { UserContext } from "../contexts/userContext";
 
+// import { ActivityIndicator } from 'react-native-paper';
+
+/* polyfills */
+/** URL polyfill */
+import 'react-native-url-polyfill/auto';
+
 
 const ProfileScreen = () => {
     
   const [visible, setVisible] = useState(false);
-  const [details, setDetails] = useState('--empty--')
+  const [userData, setUserData] = useState(null)
+  const [details, setDetails] = useState('Tell us more about yourself!')
+  const [loading, setLoading] = useState(true); 
+  
 
   const { user } = useContext(UserContext)
 
@@ -24,36 +33,49 @@ const ProfileScreen = () => {
   const containerStyle = {backgroundColor: 'white', padding: 20};
 
   useEffect(() => {
-    const getDetails = async () => {
+    const getUserData = async () => {
       const { error, data } = await supabase
         .from('users')
-        .select('status')
+        .select('*')
         .eq('id', user.id)
 
-        data.map(data => setDetails(data.status))
+        // console.log(data)
+
+        setUserData(data)
+        setLoading(false)
+        setDetails(data[0].status)   
     }
 
-    getDetails();
+    getUserData();
   }, [])
 
+
   return (
+
     <Provider>
-    <Portal>
-      <Modal visible={visible} contentContainerStyle={containerStyle}>
-        <ProfileForm 
-          onPressHandler={hideModal}
-        />
-      </Modal>
-    </Portal>
-    <Avatar/>
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Username: {user.user_metadata.username}  </Text>
-        <Text>About me: {details} </Text>
-        <Button style={{marginTop: 30}} onPress={showModal}>
-        Update Status 
+      <Portal>
+        <Modal visible={visible} contentContainerStyle={containerStyle}>
+          <ProfileForm 
+            onPressHandler={hideModal}
+          />
+        </Modal>
+      </Portal>
+
+    {loading ? <ActivityIndicator size="small" color="#0000ff" /> :
+
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Avatar data={userData}/>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={styles.title}>Username: </Text>
+          <Text style={styles.body}>{user.user_metadata.username} </Text>
+          <Text style={styles.title}>About me: </Text>
+          <Text style={styles.body}>{details} </Text>
+        </View>
+        <Button style={{marginBottom: 80}} onPress={showModal}>
+          Update Status 
         </Button>
-    </View>
-  </Provider>
+      </View>}
+    </Provider>
   );
 }
 
@@ -61,16 +83,19 @@ export default ProfileScreen;
 
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 40,
-    padding: 12,
-  },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: "stretch",
-  },
-  mt20: {
-    marginTop: 20,
-  },
+  
+  title: {
+    fontSize: 30, 
+    textAlign: 'center',
+    marginBottom: 5
+},
+
+body: {
+  fontSize: 25, 
+  fontFamily: "AvenirNext-Italic",
+  textAlign: 'center',
+  marginBottom: 20
+},
+
+
 });

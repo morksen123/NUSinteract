@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderWidth: 1,
         borderColor: '#407BFF'
+        
     },
+    
     pressed: {
         opacity:0.7
     },

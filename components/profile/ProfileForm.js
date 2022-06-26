@@ -4,7 +4,7 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import HostActivityPressable from '../hostActivity/HostActivityPressable';
 
@@ -27,11 +27,27 @@ const ProfileForm = ({ onPressHandler }) => {
             .from('users')
             .upsert({ 
                 status: details,
-                user_id: user.id
+                id: user.id
              })
 
             //  console.log({ error, data })
+
+            onPressHandler()
     }
+
+    // real time
+    // useEffect(() => {
+    //     const subscription = supabase
+    //         .from('users')
+    //         .on('UPDATE', (payload) => {
+    //             setDetails(payload)
+    //         })
+    //         .subscribe();
+
+    //     return () => {
+    //         supabase.removeSubscription(subscription)
+    //     }
+    // }, [])
     
 
     return (
