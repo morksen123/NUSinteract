@@ -29,6 +29,7 @@ const MapScreen = () => {
 
     }, [])
 
+
     const region = {
         latitude: 1.29692,  //preview of NUS MAP
         longitude: 103.77651 ,
@@ -44,24 +45,26 @@ const MapScreen = () => {
                 'user_id': user.id,
                 'activity_id': activityID
             }])
+
+        
+
         //console.log({data, error})
+
         
     }
 
-
+// bug 
     return (
         <MapView 
             style={styles.map}
             initialRegion = {region}
             provider = {PROVIDER_GOOGLE}
         >
-           {data.map((marker,index) => (
+           {data.map((marker) => (
 
                 <Marker
                     key={marker.activity_id} 
                     coordinate={marker.coordinates}
-                    title={marker.activity_details.title}
-                    description = {marker.activity_details.details}
                 >
                     <Callout tooltip>
                         <View style={styles.bubble}>

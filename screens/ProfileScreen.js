@@ -45,7 +45,7 @@ const ProfileScreen = () => {
         />
       </Modal>
     </Portal>
-
+    <Avatar/>
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Username: {user.user_metadata.username}  </Text>
         <Text>About me: {details} </Text>
@@ -53,11 +53,6 @@ const ProfileScreen = () => {
         Update Status 
         </Button>
     </View>
-
-    <Avatar/>
-
-    
-
   </Provider>
   );
 }
