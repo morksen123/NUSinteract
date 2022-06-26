@@ -80,8 +80,11 @@ const Avatar = () => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-        {<Image source={{ uri: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${avatarUrl}`}} style={{width: 200, height: 200}} />}
+      <Button title="Choose Profile Picture" onPress={pickImage} />
+        {<Image 
+          source={{ uri: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${avatarUrl}`}} 
+          style={{width: 200, height: 200, borderRadius: 200 / 2}} 
+          />}
     </View>
   );
 }
