@@ -25,7 +25,7 @@ const ProfileForm = ({ onPressHandler }) => {
 
         const { error, data } = await supabase
             .from('users')
-            .insert({ 
+            .upsert({ 
                 status: details,
                 user_id: user.id
              })
