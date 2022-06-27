@@ -33,7 +33,7 @@ const ActivityListScreen = () => {
 
         getData();
 
-    }, [])
+    }, [data])
 
 
     function leaveActivityHandler(key) {
