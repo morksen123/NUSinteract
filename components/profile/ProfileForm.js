@@ -30,24 +30,8 @@ const ProfileForm = ({ onPressHandler }) => {
                 id: user.id
              })
 
-            //  console.log({ error, data })
-
             onPressHandler()
     }
-
-    // real time
-    // useEffect(() => {
-    //     const subscription = supabase
-    //         .from('users')
-    //         .on('UPDATE', (payload) => {
-    //             setDetails(payload)
-    //         })
-    //         .subscribe();
-
-    //     return () => {
-    //         supabase.removeSubscription(subscription)
-    //     }
-    // }, [])
     
 
     return (
@@ -56,7 +40,7 @@ const ProfileForm = ({ onPressHandler }) => {
 
             <TextInput
                 style={styles.additionalDetails}
-                placeholder='Details' 
+                placeholder='About me: looking for mj kaki' 
                 value={details}
                 onChangeText={setDetails}
                 selectionColor={THEME}

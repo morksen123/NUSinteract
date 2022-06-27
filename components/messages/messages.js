@@ -20,6 +20,7 @@ const Messages = () => {
         const subscription = supabase
             .from('messages')
             .on('INSERT', (payload) => {
+                console.log(payload)
                 setMessages((current) => [...current, payload.new])
             })
             .subscribe();

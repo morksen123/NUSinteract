@@ -68,7 +68,7 @@ const Avatar = ({ data }) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {<Image 
         source={{ uri: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${avatarUrl}`}} 
-        style={{width: 200, height: 200, borderRadius: 200 / 2}} 
+        style={{width: 200, height: 200, borderRadius: 200 / 2, marginTop: 100}} 
       />}
       <Button title="Choose Profile Picture" onPress={pickImage} />
     </View>

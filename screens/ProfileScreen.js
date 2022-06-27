@@ -16,6 +16,7 @@ import { UserContext } from "../contexts/userContext";
 /* polyfills */
 /** URL polyfill */
 import 'react-native-url-polyfill/auto';
+import { current } from "@reduxjs/toolkit";
 
 
 const ProfileScreen = () => {
@@ -48,6 +49,20 @@ const ProfileScreen = () => {
 
     getUserData();
   }, [])
+
+  useEffect(() => {
+        const subscription = supabase
+            .from('users')
+            .on('UPDATE', (payload) => {
+                setDetails(() => setDetails(payload.new.status))
+            })
+            .subscribe();
+        
+        return () => {
+            supabase.removeSubscription(subscription)
+        }
+
+    }, [])
 
 
   return (
@@ -91,7 +106,7 @@ const styles = StyleSheet.create({
 },
 
 body: {
-  fontSize: 25, 
+  fontSize: 20, 
   fontFamily: "AvenirNext-Italic",
   textAlign: 'center',
   marginBottom: 20
