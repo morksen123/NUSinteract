@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { Text } from "react-native-paper";
-import { current } from "@reduxjs/toolkit";
+
 
 const Messages = () => {
 
@@ -31,11 +31,13 @@ const Messages = () => {
     }, [])
 
     return (
+        
         messages.map((message) =>
-         <Text key={message.id}>
+            <Text key={message.id}>
             {message.content} {message.user_id}
-         </Text>
+        </Text>
         )
+        
     )
 }
 

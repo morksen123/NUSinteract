@@ -82,6 +82,7 @@ const HostActivityForm = ({ onPressHandler }) => {
                         value={enteredTitle}
                         onChangeText={changeTitleHandler}
                         selectionColor={THEME}
+                        required
                     />
                 
                 </View>

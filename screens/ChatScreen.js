@@ -1,76 +1,72 @@
-import {
-    Text, 
-    View,
-    SafeAreaView, 
-    TextInput, 
-    StyleSheet, 
-    Button 
-} from 'react-native';
+import React, { useState, useCallback, useEffect, useContext } from 'react'
+
+import { UserContext } from '../contexts/userContext';
+
 import { supabase } from '../utils/supabase';
-import { useState } from 'react';
 
-import Messages from '../components/messages/messages';
-
-const THEME = '#3F3F3F'
+import { GiftedChat } from 'react-native-gifted-chat'
 
 const ChatScreen = () => {
+  const [messages, setMessages] = useState([]);
+  const [avatarUrl, setAvatarUrl] = useState('')
 
-    const [message, setMessage] = useState(''); 
+  const { user } = useContext(UserContext)
 
-    const onPressHandler = async () => {
+  
 
+  useEffect(() => {
+    const getData = async () => {
+        const { data } = await supabase.from('messages').select('*')
+        let messageData = data
+
+        setMessages(messageData.map(doc => ({
+            _id: doc.id,
+            text: doc.content,
+            createdAt: doc.created_at,
+            user: { 
+                _id: doc.user_id,
+                name: user.user_metadata.username,
+            }
+
+        })))
+    }
+    
+
+    getData()
+  }, [])
+          
+  /*
+  ** stores message in database
+  */
+  const onSendHandler = async () => {
         const { error, data } = await supabase
             .from('messages')
             .insert({ 
-                content: message,
-                user_id: supabase.auth.user().id
-             })
-
-            //  console.log({ error, data })
+                id: messages[0]._id, 
+                content: messages[0].text,
+                user_id: user.id
+            })
     }
-    
-    return (
-        <SafeAreaView style={{ backgroundColor:"#b1f2ff"  ,flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-            <Text>Chat Screen</Text>
-            
-            <TextInput 
-                style={styles.textInput}
-                selectionColor={THEME}
-                value={message}
-                onChangeText={setMessage}
-            />
 
-            <Button onPress={onPressHandler} title="Send Message"/>
-            <Messages/>
-            
-        </SafeAreaView>  
-    )
+  const onSend = useCallback((messages = []) => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+
+    onSendHandler(); 
+    // console.log(messages)
+    
+  }, [])
+
+  return (
+    <GiftedChat
+      messages={messages}
+      showAvatarForEveryMessage={true}
+      onSend={messages => onSend(messages)}
+      user={{
+        _id: user.id,
+        name: user.user_metadata.username
+      }} 
+    />
+  )
 }
 
 export default ChatScreen; 
-
-
-const styles = StyleSheet.create({
-
-    textInput: {
-        alignSelf: 'center',
-        borderWidth: 2,
-        borderColor: THEME, 
-        borderRadius: 4, 
-        width: '90%',
-        height: 40, 
-        paddingHorizontal: 8, 
-    },
-
-    
-    title: {
-        fontSize: 35, 
-        fontFamily: "AvenirNext-Italic",
-        textAlign: 'center',
-        marginBottom: 20
-    },
-
-    boldText: {
-        fontWeight: '500'
-    }
-});

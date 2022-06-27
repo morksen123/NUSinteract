@@ -8,8 +8,6 @@ import { UserContext } from '../contexts/userContext';
 
 import { supabase } from '../utils/supabase';
 
-import { Surface } from 'react-native-paper';
-import { NavigationHelpersContext } from '@react-navigation/native';
 
 
 const MapScreen = ({navigation}) => {
