@@ -24,7 +24,7 @@ const styles = StyleSheet.create ({
         alightItems: 'center'
     },
     pressed:{
-        opacity : 0.7
+        opacity : 0.5
     }
 
 

@@ -10,6 +10,7 @@ import Avatar from '../components/profile/Avatar';
 import { supabase } from "../utils/supabase";
 
 import { UserContext } from "../contexts/userContext";
+import OutlinedButton from "../components/Buttons/OutlinedButton";
 
 // import { ActivityIndicator } from 'react-native-paper';
 
@@ -78,18 +79,25 @@ const ProfileScreen = () => {
 
     {loading ? <ActivityIndicator size="small" color="#0000ff" /> :
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.entireContainer}>
         <Avatar data={userData}/>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.statusContainer}>
           <Text style={styles.title}>Username: </Text>
           <Text style={styles.body}>{user.user_metadata.username} </Text>
           <Text style={styles.title}>About me: </Text>
           <Text style={styles.body}>{details} </Text>
         </View>
-        <Button style={{marginBottom: 80}} onPress={showModal}>
-          Update Status 
-        </Button>
-      </View>}
+
+        <View style = {styles.updatebutton}>
+
+          <OutlinedButton icon="create" onPress={showModal}>
+            Update Status
+          </OutlinedButton>
+
+        </View>
+
+      </View>
+      }
     </Provider>
   );
 }
@@ -98,8 +106,21 @@ export default ProfileScreen;
 
 
 const styles = StyleSheet.create({
+
+entireContainer:{ 
+  flex: 1,
+  backgroundColor:"#b1f2ff" 
+  //alignItems: 'center', 
+  //justifyContent: 'center' 
+},
+
+statusContainer: { 
+  flex: 1, 
+  alignItems: 'center', 
+  justifyContent: 'center' 
+},
   
-  title: {
+title: {
     fontSize: 30, 
     textAlign: 'center',
     marginBottom: 5
@@ -111,6 +132,10 @@ body: {
   textAlign: 'center',
   marginBottom: 20
 },
+
+updatebutton:{
+  marginBottom: 80
+}
 
 
 });
