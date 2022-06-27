@@ -6,7 +6,7 @@ import { supabase } from '../utils/supabase';
 
 import { GiftedChat } from 'react-native-gifted-chat'
 
-const DummyScreen = () => {
+const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
   const [avatarUrl, setAvatarUrl] = useState('')
 
@@ -31,14 +31,14 @@ const DummyScreen = () => {
         })))
     }
     
+
     getData()
   }, [])
           
-    /*
-    ** stores message in database
-    */
-    const onSendHandler = async () => {
-
+  /*
+  ** stores message in database
+  */
+  const onSendHandler = async () => {
         const { error, data } = await supabase
             .from('messages')
             .insert({ 
@@ -69,4 +69,4 @@ const DummyScreen = () => {
   )
 }
 
-export default DummyScreen;
+export default ChatScreen; 

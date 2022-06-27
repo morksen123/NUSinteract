@@ -1,4 +1,5 @@
-import { 
+import {
+    Text, 
     StyleSheet,
     View,
     TextInput,
@@ -11,6 +12,8 @@ import HostActivityPressable from '../hostActivity/HostActivityPressable';
 import { supabase } from '../../utils/supabase';
 
 import { UserContext } from '../../contexts/userContext';
+
+import OutlinedButton from '../Buttons/OutlinedButton';
 
 const THEME = '#3F3F3F';
 
@@ -38,6 +41,8 @@ const ProfileForm = ({ onPressHandler }) => {
         
         <View style={styles.container}>
 
+            <Text style = {styles.title}>Update your status!</Text>
+
             <TextInput
                 style={styles.additionalDetails}
                 placeholder='About me: looking for mj kaki' 
@@ -46,15 +51,11 @@ const ProfileForm = ({ onPressHandler }) => {
                 selectionColor={THEME}
             />
 
-            <HostActivityPressable  
-                title={'Update'}
-                onPressHandler={onUpdateHandler}
-            />
+            <View style = {styles.buttons}>
+                <OutlinedButton icon="pencil" onPress={onUpdateHandler}>Update </OutlinedButton>
+                <OutlinedButton icon="close" onPress={onPressHandler}>Cancel</OutlinedButton>
+            </View>
 
-            <HostActivityPressable  
-                title={'Cancel'}
-                onPressHandler={onPressHandler}
-            />
         </View>
     )
 }
@@ -64,10 +65,26 @@ export default ProfileForm;
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: 'white',
-        height: '90%',
+        backgroundColor: "white" ,
+        height: '100%',
         justifyContent: 'center',
+    
+        //alignItems: 'center',
+    },
+
+    title:{
+        justifyContent:'center',
         alignItems: 'center',
+        marginLeft:100,
+        paddingBottom:20
+
+
+    },
+
+    buttons:{
+        flexDirection:'row',
+        justifyContent:'space-evenly'
+        
     },
 
     additionalDetails: {
@@ -76,7 +93,7 @@ const styles = StyleSheet.create({
         borderColor: THEME, 
         borderRadius: 4, 
         width: '80%',
-        height: 80, 
+        height: 120, 
         paddingHorizontal: 8, 
         marginBottom: 10
 
