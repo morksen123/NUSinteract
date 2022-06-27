@@ -8,12 +8,14 @@ import {
 
 import { useCallback, useContext, useState } from 'react';
 
-import HostActivityPressable from './HostActivityPressable';
+//import HostActivityPressable from './HostActivityPressable';
 import LocationPicker from './LocationPicker';
 
 import { UserContext } from '../../contexts/userContext';
 
 import { supabase } from '../../utils/supabase';
+
+import OutlinedButton from '../Buttons/OutlinedButton';
 
 const THEME = '#3F3F3F';
 
@@ -118,15 +120,25 @@ const HostActivityForm = ({ onPressHandler }) => {
                     <LocationPicker onPickLocation={pickLocationHandler}/>
                 </View>
 
-                <View style = {styles.buttons}>             
-                    <HostActivityPressable  
-                    title={'Host Activity'}
-                    onPressHandler = {HostActivityHandler}/>
+                <View style = {styles.buttons}>
+                    <View style = {styles.hostActivity}>           
+                        <OutlinedButton
+                            icon="people-circle"
+                            onPress = {HostActivityHandler}
+                        >
+                        Confirm Activity
+                        </OutlinedButton> 
+                    </View>  
+                    
+                    <View style = {styles.cancelActivity}>
+                        <OutlinedButton
+                            icon="close"
+                            onPress = {onPressHandler}
+                        >
+                            Cancel Form
+                        </OutlinedButton> 
+                    </View>
 
-                    <HostActivityPressable  
-                    title={'Cancel'}
-                    onPressHandler={onPressHandler}
-                    />
                 </View>
 
             </View>
@@ -183,6 +195,17 @@ const styles = StyleSheet.create({
     },
 
     buttons : {
-        flexDirection: 'row'
+        flexDirection:'row',
+
+    },
+
+    hostActivity:{
+        marginRight: 16
+
+    },
+
+    cancelActivity:{
+        //marginRight:
     }
+
 });

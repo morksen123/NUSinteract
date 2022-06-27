@@ -1,12 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { Button, Image, View, Alert, Text } from 'react-native';
+import {StyleSheet, Image, View, Alert, Text } from 'react-native';
 
 import { supabase } from '../../utils/supabase';
 
 import * as ImagePicker from 'expo-image-picker';
 
 import { UserContext } from '../../contexts/userContext';
+
+import OutlinedButton from '../Buttons/OutlinedButton';
 
 
 /* polyfills */
@@ -70,9 +72,22 @@ const Avatar = ({ data }) => {
         source={{ uri: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${avatarUrl}`}} 
         style={{width: 200, height: 200, borderRadius: 200 / 2, marginTop: 100}} 
       />}
-      <Button title="Choose Profile Picture" onPress={pickImage} />
+
+      <View style = {styles.button}>
+        <OutlinedButton icon="person-circle" onPress={pickImage}>Choose Profile Picture</OutlinedButton>
+      </View>
+
     </View>
   );
 }
 
 export default Avatar;
+
+
+const styles = StyleSheet.create({
+  button:{
+    marginTop: 10
+  }
+  
+
+  });

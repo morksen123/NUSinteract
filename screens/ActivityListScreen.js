@@ -74,43 +74,45 @@ const ActivityListScreen = () => {
         // </View>
 
         
-        <ScrollView>
+        <ScrollView style = {styles.bg}>
             <SafeAreaView>
                 <View style={styles.container}>
-                    <View style ={styles.title}>
-                        <Text> List Of Joined Activities </Text>
-                    </View>
+                    
+                    <Text style ={styles.title}> Joined Activities </Text>
+                    
 
                     <View>
                         {data.map((activity) => (
 
-                            <View styles={styles.activity} key={activity['activity_id']}> 
-                                <View style={styles.paddingTop}>
-                                    <Text> 
-                                        Activity Title: {activity['hostActivity']['activity_details']['title']} 
-                                    </Text>
-                                </View>
+                            <View styles={styles.activity} key={activity['activity_id']}>
+                                <View style= {styles.activitybubble}> 
+                                    <View style={styles.paddingTop}>
+                                        <Text> 
+                                            Activity Title: {activity['hostActivity']['activity_details']['title']} 
+                                        </Text>
+                                    </View>
 
-                                <View> 
-                                    <Text> 
-                                        Time: {activity['hostActivity']['activity_details']['time']} 
-                                    </Text>
-                                </View>
+                                    <View> 
+                                        <Text> 
+                                            Time: {activity['hostActivity']['activity_details']['time']} 
+                                        </Text>
+                                    </View>
 
-                                <View>
-                                    <Text> 
-                                        Details: {activity['hostActivity']['activity_details']['details']} 
-                                    </Text>
-                                </View>
+                                    <View>
+                                        <Text> 
+                                            Details: {activity['hostActivity']['activity_details']['details']} 
+                                        </Text>
+                                    </View>
 
-                                <View style= {styles.paddingBottom}>
-                                    <Text> 
-                                        Location: {activity['hostActivity']['activity_details']['location_details']} 
-                                    </Text>
+                                    <View style= {styles.paddingBottom}>
+                                        <Text> 
+                                            Location: {activity['hostActivity']['activity_details']['location_details']} 
+                                        </Text>
+                                    </View>
                                 </View>
 
                                 <OutlinedButton 
-                                    icon="log-out-outline" 
+                                    icon="log-out" 
                                     onPress={() => leaveActivityHandler(activity['activity_id'])}
                                 > 
                                     Leave Activity 
@@ -132,35 +134,69 @@ export default ActivityListScreen;
 
 
 const styles = StyleSheet.create({
+
+    bg:{
+        backgroundColor:"#b1f2ff" 
+    },
+
     container: {
         flex: 1,
         flexDirection: "column",
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
     },
 
     title: {
         alignItems: 'center',
         justifyContent: 'center',
-    
-        paddingTop:10,
-        paddingBottom:10
+
+        marginTop: 20,
+        //paddingVertical: 30,
+        paddingHorizontal: 10,
+        borderWidth: 4,
+        borderColor: "#20232a",
+        borderRadius: 6,
+        backgroundColor: '#7FFFD4',
+        color: "#20232a",
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight: "bold",
+        fontFamily: "AvenirNext-Italic",
 
     },
 
     activity: {
         
-        marginTop: 20,
-        marginBottom: 20
+        marginTop: 10,
+        marginBottom: 10,
+        
+
+    },
+
+    activitybubble:{
+        //alignItems: 'center',
+        marginTop:10,
+        marginBottom:10,
+        marginLeft:10,
+        marginRight:10,
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: "#20232a",
+        borderRadius: 6,
+        backgroundColor: '#7FFFD4',
+        paddingHorizontal: 10
+
+
 
     },
 
     paddingTop: {
-        paddingTop: 30
+        paddingTop: 10
     },
 
     paddingBottom: {
-        paddingBottom: 30
+        paddingBottom: 10
     }
 
 });

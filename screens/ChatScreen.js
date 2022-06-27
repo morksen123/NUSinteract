@@ -30,7 +30,7 @@ const ChatScreen = () => {
     }
     
     return (
-        <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
+        <SafeAreaView style={{ backgroundColor:"#b1f2ff"  ,flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
             <Text>Chat Screen</Text>
             
             <TextInput 

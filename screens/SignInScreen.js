@@ -17,6 +17,8 @@ import { UserContext } from '../contexts/userContext';
 
 import { supabase } from '../utils/supabase';
 
+import OutlinedButton from '../components/Buttons/OutlinedButton';
+
 const THEME = '#3F3F3F';
 
 const SignInScreen = ({ navigation }) => {
@@ -48,42 +50,54 @@ const SignInScreen = ({ navigation }) => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
             <View style={styles.container}>
-             
-                <Image
-                    source = {require('../assets/logo.png')}
-                    style = {{width: 200, height: 220, bottom: 15}}
-                />
+
+                <View style={styles.imagecontainer}>
+                    <Image
+                        source = {require('../assets/logo.png')}
+                        style = {{width: 200, height: 220, bottom: 15}}
+                    />
+                </View>
 
                 <Text style={[styles.title, styles.boldText]}>
                     NUSinteract
                 </Text>
 
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Email' 
-                    KeyboardType='email-address'
-                    value={email}
-                    onChangeText={setEmail}
-                    selectionColor={THEME}
-                />
+                <View style = {styles.fillup}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='Email' 
+                        KeyboardType='email-address'
+                        value={email}
+                        onChangeText={setEmail}
+                        selectionColor={THEME}
+                    />
 
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Password' 
-                    value={password}
-                    onChangeText={setPassword}
-                    selectionColor={THEME}
-                    secureTextEntry
-                />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='Password' 
+                        value={password}
+                        onChangeText={setPassword}
+                        selectionColor={THEME}
+                        secureTextEntry
+                    />
 
-                <AuthPressable
-                    onPressHandler={signInWithEmail}    
-                    title={'SIGN IN'}
-                />
-                <AuthPressable
-                    onPressHandler={navigateToSignUp}    
-                    title={'SIGN UP WITH NUS EMAIL'}
-                />
+                    <OutlinedButton
+                        icon="enter"
+                        onPress={signInWithEmail}    
+                        
+                    >
+                        SIGN IN
+                    </OutlinedButton>
+
+                    <OutlinedButton
+                        icon="document-text"
+                        onPress={navigateToSignUp}    
+                        
+                    >
+                        SIGN UP WITH NUS EMAIL
+                    </OutlinedButton>
+
+                </View>
             </View>
         </KeyboardAvoidingView>
     )
@@ -97,7 +111,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#7FFFD4',
         height: '100%',
         justifyContent: 'center',
-        alignItems: 'center',
+        //alignItems: 'center',
+    },
+    imagecontainer:{
+         marginLeft:95,
     },
 
     textInput: {
@@ -111,7 +128,6 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
 
-    
     title: {
         fontSize: 35, 
         fontFamily: "AvenirNext-Italic",
@@ -121,5 +137,12 @@ const styles = StyleSheet.create({
 
     boldText: {
         fontWeight: '500'
+    },
+
+    fillup: {
+        //flexDirection:'column',
+        justifyContent: 'space-evenly',
+        //alignItems:'center'
+        
     }
 });
