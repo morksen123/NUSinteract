@@ -33,13 +33,11 @@ const ActivityListScreen = () => {
 
         getData();
 
-    }, [data])
+    }, [])
 
 
     function leaveActivityHandler(key) {
 
-
-        //NEED TO RELOOK WHETHER IT SYNCS TO DATABASE
         const deleteData = async () => {
             const { error, data } = await supabase
                 .from('joinActivity')
@@ -66,13 +64,8 @@ const ActivityListScreen = () => {
  
     } 
 
-    
 
     return (
-        // <View style = { {flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        //     <Text> Hello </Text>
-        // </View>
-
         
         <ScrollView style = {styles.bg}>
             <SafeAreaView>

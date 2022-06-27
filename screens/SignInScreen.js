@@ -11,8 +11,6 @@ import {
 
 import { useContext, useState } from 'react';
 
-import AuthPressable from '../components/auth/AuthPressable';
-
 import { UserContext } from '../contexts/userContext';
 
 import { supabase } from '../utils/supabase';
@@ -81,21 +79,25 @@ const SignInScreen = ({ navigation }) => {
                         secureTextEntry
                     />
 
-                    <OutlinedButton
-                        icon="enter"
-                        onPress={signInWithEmail}    
-                        
-                    >
-                        SIGN IN
-                    </OutlinedButton>
+                    <View style={styles.OutlinedButton}>
+                        <OutlinedButton 
+                            icon="enter"
+                            onPress={signInWithEmail}    
+                            
+                        >
+                            SIGN IN
+                        </OutlinedButton>
 
-                    <OutlinedButton
-                        icon="document-text"
-                        onPress={navigateToSignUp}    
-                        
-                    >
-                        SIGN UP WITH NUS EMAIL
-                    </OutlinedButton>
+                        <OutlinedButton
+                            icon="document-text"
+                            onPress={navigateToSignUp}    
+                            
+                        >
+                            SIGN UP WITH NUS EMAIL
+                        </OutlinedButton>                    
+                    </View>
+
+                    
 
                 </View>
             </View>
@@ -108,7 +110,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#7FFFD4',
+        backgroundColor: '#b1f2ff',
         height: '100%',
         justifyContent: 'center',
         //alignItems: 'center',
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
         borderColor: THEME, 
         borderRadius: 4, 
         width: '80%',
-        height: 40, 
+        height: 45, 
         paddingHorizontal: 8, 
         marginBottom: 10
     },
@@ -139,10 +141,9 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
 
-    fillup: {
-        //flexDirection:'column',
-        justifyContent: 'space-evenly',
-        //alignItems:'center'
-        
+    OutlinedButton: {
+        width: '82%',
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 });

@@ -7,7 +7,7 @@ import {
     TextInput
 } from 'react-native';
 
-import AuthPressable from '../components/auth/AuthPressable';
+import OutlinedButton from '../components/Buttons/OutlinedButton';
 
 import { useState } from 'react';
 
@@ -105,10 +105,18 @@ const SignUpScreen = () => {
                 secureTextEntry
             />
 
-            <AuthPressable
-                onPressHandler={signUpWithEmail}    
-                title={'Proceed'}
-            />
+
+            <View style={styles.OutlinedButton}>
+                <OutlinedButton
+                    icon="document-text"
+                    onPress={signUpWithEmail}    
+                    >
+                    Proceed
+                </OutlinedButton>   
+            </View>
+            
+
+            
         </View>
     )
 }
@@ -118,7 +126,7 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#7FFFD4',
+        backgroundColor: '#b1f2ff',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -144,5 +152,11 @@ const styles = StyleSheet.create({
 
     boldText: {
         fontWeight: '500'
+    },
+
+    OutlinedButton: {
+        width: '82%',
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 });

@@ -41,7 +41,7 @@ const SignInStack = () => {
                     )
                 },
                 
-                tabBarActiveTintColor: 'seagreen',
+                tabBarActiveTintColor: '#0E86D4',
                 tabBarInactiveTintColor: 'black',
                 style: {width: fullScreenWidth},
                 headerShown: false 
