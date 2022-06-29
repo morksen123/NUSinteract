@@ -16,6 +16,7 @@ import OutlinedButton from '../Buttons/OutlinedButton';
 import 'react-native-url-polyfill/auto';
 
 const Avatar = ({ data }) => {
+  // console.log(data)
   const [avatarUrl, setAvatarUrl] = useState(data[0].avatar_url);
 
   const { user } = useContext(UserContext);
@@ -33,6 +34,7 @@ const Avatar = ({ data }) => {
       quality: 1,
     });
 
+    let avatarUrl = '';
     // uploads image to supabase storage if there's no error with imagePicker
     if (!result.cancelled) {
 
@@ -51,10 +53,9 @@ const Avatar = ({ data }) => {
         .from("avatars")
         .upload(fileName, formData)
 
-      if (error) {
-          Alert.alert(error.message);
-      } else {
-          setAvatarUrl(data.Key); 
+      if (data) {
+        setAvatarUrl(data.Key); 
+        avatarUrl = data.Key
       }
     }
     

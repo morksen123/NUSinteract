@@ -17,7 +17,6 @@ import OutlinedButton from "../components/Buttons/OutlinedButton";
 /* polyfills */
 /** URL polyfill */
 import 'react-native-url-polyfill/auto';
-import { current } from "@reduxjs/toolkit";
 
 
 const ProfileScreen = () => {
@@ -40,8 +39,6 @@ const ProfileScreen = () => {
         .from('users')
         .select('*')
         .eq('id', user.id)
-
-        // console.log(data)
 
         setUserData(data)
         setLoading(false)
