@@ -60,24 +60,6 @@ const ActivityListScreen = () => {
         deleteData()  
     }
 
-    // function to retrieve user data from host activity table 
-    const onChatHandler = (activityID) => {
-
-        showModal();
-
-        const getHostActivityUserID = async () => {
-            const { error, data } = await supabase 
-                .from('hostActivity')
-                .select('user_id')
-                .match({ activity_id: activityID })
-
-            setHostID(data[0].user_id)
-        }
-            
-        getHostActivityUserID()
-
-    }
-
 
     if (!data) {
         return (
@@ -144,10 +126,6 @@ const ActivityListScreen = () => {
                                     > 
                                         Leave Activity 
                                     </OutlinedButton>
-
-                                    <Button onPress={() => onChatHandler(activity['activity_id'])}>
-                                        CHAT WITH HOST BUTTON
-                                    </Button>  
                                 </View>
                             ))}
                         </View>
