@@ -5,9 +5,7 @@ import {
     TextInput,
 } from 'react-native';
 
-import { useContext, useState, useEffect } from 'react';
-
-import HostActivityPressable from '../hostActivity/HostActivityPressable';
+import { useContext, useState } from 'react';
 
 import { supabase } from '../../utils/supabase';
 

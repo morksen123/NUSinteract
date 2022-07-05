@@ -8,7 +8,6 @@ import {
 
 import { useCallback, useContext, useState } from 'react';
 
-//import HostActivityPressable from './HostActivityPressable';
 import LocationPicker from './LocationPicker';
 
 import { UserContext } from '../../contexts/userContext';

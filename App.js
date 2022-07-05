@@ -4,13 +4,18 @@ import SignOutStack from './navigation/SignOutStack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { UserProvider } from './contexts/userContext';
+import { HostIDProvider } from './contexts/hostIDContext';
+
 import { UserContext } from './contexts/userContext';
+
 import { useContext } from 'react';
 
 const AppWrapper = () => {
   return (
     <UserProvider>
-      <App/>
+      <HostIDProvider>
+        <App/>
+      </HostIDProvider>
     </UserProvider>
   )
 }
