@@ -2,6 +2,8 @@
   "expo": {
     "name": "Orbital2022",
     "slug": "Orbital2022",
+    "owner": "morksen",
+    "privacy": "public",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",

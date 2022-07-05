@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Dimensions } from 'react-native';
 
-import ChatScreen from "../screens/ChatScreen";
+import ChatStack from "./ChatStack";
 import ProfileScreen from "../screens/ProfileScreen";
 import ActivityListScreen from "../screens/ActivityListScreen";
 import HomeHostJoinStack from "./HomeHostJoinStack";
@@ -48,7 +48,7 @@ const SignInStack = () => {
             
             <Tab.Screen name="Home" component={HomeHostJoinStack}/>
             <Tab.Screen name="Profile" component={ProfileScreen}/>
-            <Tab.Screen name="Chat" component={ChatScreen}/>
+            <Tab.Screen name="Chat" component={ChatStack}/> 
             <Tab.Screen name="Activities" component={ActivityListScreen}/>
         </Tab.Navigator>
     )

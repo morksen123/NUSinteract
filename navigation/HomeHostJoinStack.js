@@ -14,7 +14,7 @@ const HomeHostJoinStack = () => {
             <Stack.Screen name="HomeCopy" component={HomeScreen} options={{header: () => null}}/>
             <Stack.Screen name="HostActivity" component={HostActivityScreen}/>
             <Stack.Screen name="Map" component={MapScreen}/>
-            <Stack.Screen name = "PickLocation" component= {PickLocationScreen} />
+            <Stack.Screen name="PickLocation" component={PickLocationScreen} />
         </Stack.Navigator>
     )
 }
