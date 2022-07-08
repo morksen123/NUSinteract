@@ -1,29 +1,21 @@
 
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 
-import { Modal, Portal, Button, Provider } from 'react-native-paper';
-
 import { useContext, useState, useEffect } from 'react';
 
 import { UserContext } from '../contexts/userContext';
-import { HostIDContext } from '../contexts/hostIDContext'
 
 import { supabase } from '../utils/supabase';
 
 import OutlinedButton from '../components/Buttons/OutlinedButton';
 
-import ChatBox from '../components/hostActivity/ChatBox';
 
 const ActivityListScreen = () => {
     
     const { user } = useContext(UserContext);
-    const { hostID, setHostID } = useContext(HostIDContext);
 
-    const [visible, setVisible] = useState(false);
+
     const [data, setData] = useState(null)
-
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -31,13 +23,16 @@ const ActivityListScreen = () => {
                 .from('joinActivity')
                 .select(`
                     activity_id,
+                    accepted,
                     hostActivity (
                         activity_details
                     )
                 `)
                 .eq('user_id', user.id)
-
-                setData(data)
+                
+                const filteredData = data.filter((activity) => activity.accepted === 'accepted')
+                // console.log(filteredData)
+                setData(filteredData)
         }
 
         getData();
@@ -68,7 +63,6 @@ const ActivityListScreen = () => {
                 <Text> You have not joined any activities yet! </Text>               
             </View>
         )
- 
     } 
 
 
@@ -77,60 +71,48 @@ const ActivityListScreen = () => {
         <ScrollView style = {styles.bg}>
             <SafeAreaView>
 
-                <Provider>
-                    <Portal>
-                        <Modal visible={visible} contentContainerStyle={styles.formContainer}>
-                            <ChatBox 
-                                onPressHandler={hideModal}
-                            />
-                        </Modal>
-                    </Portal>
-                
-                    <View style={styles.container}>
-                        
-                        <Text style ={styles.title}> Joined Activities </Text>
-                        
-                        <View>
-                            {data.map((activity) => (
+                <View style={styles.container}>
+                    <View>
+                        <Text style ={styles.joinedTitle}> Joined Activities </Text>
+                        {data.map((activity) => (
 
-                                <View styles={styles.activity} key={activity['activity_id']}>
-                                    <View style= {styles.activitybubble}> 
-                                        <View style={styles.paddingTop}>
-                                            <Text> 
-                                                Activity Title: {activity['hostActivity']['activity_details']['title']} 
-                                            </Text>
-                                        </View>
-
-                                        <View> 
-                                            <Text> 
-                                                Time: {activity['hostActivity']['activity_details']['time']} 
-                                            </Text>
-                                        </View>
-
-                                        <View>
-                                            <Text> 
-                                                Details: {activity['hostActivity']['activity_details']['details']} 
-                                            </Text>
-                                        </View>
-
-                                        <View style= {styles.paddingBottom}>
-                                            <Text> 
-                                                Location: {activity['hostActivity']['activity_details']['location_details']} 
-                                            </Text>
-                                        </View>
+                            <View styles={styles.activity} key={activity['activity_id']}>
+                                <View style= {styles.activitybubble}> 
+                                    <View style={styles.paddingTop}>
+                                        <Text> 
+                                            Activity Title: {activity['hostActivity']['activity_details']['title']} 
+                                        </Text>
                                     </View>
 
-                                    <OutlinedButton 
-                                        icon="log-out" 
-                                        onPress={() => leaveActivityHandler(activity['activity_id'])}
-                                    > 
-                                        Leave Activity 
-                                    </OutlinedButton>
+                                    <View> 
+                                        <Text> 
+                                            Time: {activity['hostActivity']['activity_details']['time']} 
+                                        </Text>
+                                    </View>
+
+                                    <View>
+                                        <Text> 
+                                            Details: {activity['hostActivity']['activity_details']['details']} 
+                                        </Text>
+                                    </View>
+
+                                    <View style= {styles.paddingBottom}>
+                                        <Text> 
+                                            Location: {activity['hostActivity']['activity_details']['location_details']} 
+                                        </Text>
+                                    </View>
                                 </View>
-                            ))}
-                        </View>
+
+                                <OutlinedButton 
+                                    icon="log-out" 
+                                    onPress={() => leaveActivityHandler(activity['activity_id'])}
+                                > 
+                                    Leave Activity 
+                                </OutlinedButton>
+                            </View>
+                        ))}
                     </View>
-                </Provider>
+                </View> 
             </SafeAreaView>
         </ScrollView>  
      )
@@ -141,24 +123,16 @@ export default ActivityListScreen;
 
 const styles = StyleSheet.create({
 
-    bg:{
-        backgroundColor:"#b1f2ff" 
-    },
-
     container: {
         flex: 1,
         flexDirection: "column",
         alignItems: 'center',
         justifyContent: 'center',
-        
+        backgroundColor: 'white'
     },
 
-    title: {
-        alignItems: 'center',
-        justifyContent: 'center',
-
+    joinedTitle: {
         marginTop: 20,
-        //paddingVertical: 30,
         paddingHorizontal: 10,
         borderWidth: 4,
         borderColor: "#20232a",
@@ -169,19 +143,28 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
         fontFamily: "AvenirNext-Italic",
+    },
 
+    hostTitle: {
+        marginTop: 20,
+        paddingHorizontal: 10,
+        borderWidth: 4,
+        borderColor: "#20232a",
+        borderRadius: 6,
+        backgroundColor: '#F1836C',
+        color: "#20232a",
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight: "bold",
+        fontFamily: "AvenirNext-Italic",
     },
 
     activity: {
-        
         marginTop: 10,
-        marginBottom: 10,
-        
-
+        marginBottom: 10,   
     },
 
     activitybubble:{
-        //alignItems: 'center',
         marginTop:10,
         marginBottom:10,
         marginLeft:10,

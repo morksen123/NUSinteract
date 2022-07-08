@@ -110,10 +110,9 @@ export default SignInScreen;
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#b1f2ff',
+        backgroundColor: 'white',
         height: '100%',
         justifyContent: 'center',
-        //alignItems: 'center',
     },
     imagecontainer:{
          marginLeft:95,

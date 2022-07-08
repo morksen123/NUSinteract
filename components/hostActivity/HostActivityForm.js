@@ -46,7 +46,6 @@ const HostActivityForm = ({ onPressHandler }) => {
                 }
             }])
 
-            console.log({data, error})
             onPressHandler();
     }
 

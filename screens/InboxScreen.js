@@ -71,7 +71,6 @@ const InboxScreen = ({navigation}) => {
           renderItem={({item}) => (
             
             <Card onPress={() => navigation.navigate('Messages')}>
-              <Button onPress={() => getDisplayName(item)} title=""/>
               <UserInfo>
                 <TextSection>
                   <UserInfoText>

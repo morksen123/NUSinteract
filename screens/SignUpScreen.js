@@ -67,7 +67,7 @@ const SignUpScreen = () => {
         <View style={styles.container}>
             
             <Text style={[styles.title, styles.boldText]}>
-                Sign Up
+                Create Your Account
             </Text>
         
             <TextInput
@@ -111,7 +111,7 @@ const SignUpScreen = () => {
                     icon="document-text"
                     onPress={signUpWithEmail}    
                     >
-                    Proceed
+                    Sign Up
                 </OutlinedButton>   
             </View>
             
@@ -126,7 +126,7 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#b1f2ff',
+        backgroundColor: 'white',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',

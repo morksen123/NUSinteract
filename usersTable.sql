@@ -1,7 +1,7 @@
-create table users (
-  id uuid references auth.users not null primary key,
-  email text
-);
+/**
+*  This file shows the database functions & triggers used
+*  in supabase
+*/
 
 create or replace function public.handle_new_user() 
 returns trigger as $$
