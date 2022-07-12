@@ -30,7 +30,7 @@ const ActivityListScreen = () => {
                 `)
                 .eq('user_id', user.id)
                 
-                const filteredData = data.filter((activity) => activity.accepted === 'accepted')
+                const filteredData = data.filter((activity) => activity.accepted === 'true')
                 // console.log(filteredData)
                 setData(filteredData)
         }

@@ -13,6 +13,8 @@ import { useState } from 'react';
 
 import { supabase } from '../utils/supabase';
 
+import CustomModal from '../components/Dialog/CustomModal';
+
 
 const THEME = '#3F3F3F';
 
@@ -23,6 +25,10 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    
+    const confirmMessage = 'Your account details will be finalised and cannot be changed'
+    const confirmTitle = 'Confirm Sign Up'
 
     // check if sign up passed through
     const signUpWithEmail = async () => {
@@ -33,6 +39,9 @@ const SignUpScreen = () => {
         } else if (password != confirmPassword) {
             Alert.alert("Different passwords")
         
+        } else if (username.length < 2) {
+            alert("Invalid Username")
+
         } else {
             const { error } = await supabase.auth.signUp(
                 { 
@@ -50,7 +59,8 @@ const SignUpScreen = () => {
                 Alert.alert("Sign Up Sucessful!") 
         }
 
-        restoreForm(); 
+        restoreForm();
+        setShowModal(false); 
     }
     
 
@@ -61,9 +71,9 @@ const SignUpScreen = () => {
         setUsername('');
         Keyboard.dismiss(); 
     }
-    
-    return (
 
+
+    return (
         <View style={styles.container}>
             
             <Text style={[styles.title, styles.boldText]}>
@@ -105,19 +115,26 @@ const SignUpScreen = () => {
                 secureTextEntry
             />
 
-
             <View style={styles.OutlinedButton}>
                 <OutlinedButton
                     icon="document-text"
-                    onPress={signUpWithEmail}    
+                    onPress={() => setShowModal(true)}
                     >
                     Sign Up
-                </OutlinedButton>   
+                </OutlinedButton>
             </View>
-            
 
-            
+            { 
+                showModal ? 
+                <CustomModal
+                    onDoneHandler={signUpWithEmail}
+                    onCancelHandler={() => setShowModal(false)}
+                    body={confirmMessage}
+                    title={confirmTitle}
+                /> : null 
+            }
         </View>
+        
     )
 }
 

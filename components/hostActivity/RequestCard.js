@@ -26,20 +26,30 @@ const RequestCard = (props) => {
      */
     const onAcceptHandler = () => {
 
-        const acceptRequest = async () => {
-            const { error, data } = await supabase
-                .from('joinActivity')
-                .upsert({
-                    user_id: userID, 
-                    activity_id: activityID,
-                    accepted: 'true'
-                }) 
+            acceptRequest();
+            addUserToChatGroup();
                 
-                const filteredData = hostActivityData.filter((activity) => activity.id !== id)
-                setHostActivityData(filteredData)     
-        }
+            const filteredData = hostActivityData.filter((activity) => activity.id !== id)
+            setHostActivityData(filteredData)     
+    }
 
-        acceptRequest()
+    const acceptRequest = async () => {
+        const { error, data } = await supabase
+            .from('joinActivity')
+            .upsert({
+                user_id: userID, 
+                activity_id: activityID,
+                accepted: 'true'
+            }) 
+    }
+
+    const addUserToChatGroup = async () => {
+        const { error, data } = await supabase
+            .from('room_participants')
+            .insert([{
+                room_id: activityID,
+                profile_id: userID
+            }])
     }
 
     const onDeclineHandler = () => {
@@ -61,7 +71,7 @@ const RequestCard = (props) => {
 
     }
     
-  
+
     return (
         <SafeAreaView>
         <Card>
@@ -87,8 +97,7 @@ const RequestCard = (props) => {
             </Card.Actions>
         </Card>
     </SafeAreaView> 
-    )
-    
+    )   
 };
 
 export default RequestCard;

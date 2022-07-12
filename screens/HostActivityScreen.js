@@ -32,8 +32,6 @@ const HostActivityScreen = () => {
           <OutlinedButton icon="tennisball" onPress={showModal}>Entertainment</OutlinedButton>
 
         </View>
-
-
       </Provider>
     </View>
 

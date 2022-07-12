@@ -48,9 +48,9 @@ const SignInStack = () => {
                 header: (props) => <SignInStackHeader {...props}/>
             })}>
             
-            <Tab.Screen name="Home" component={HomeHostJoinStack}/>
+            <Tab.Screen name="Home" component={HomeHostJoinStack} options={{ header: () => null }}/>
             <Tab.Screen name="Profile" component={ProfileScreen}/>
-            <Tab.Screen name="Chat" component={ChatStack}/> 
+            <Tab.Screen name="Chat" component={ChatStack} options={{ header: () => null }}/> 
             <Tab.Screen name="Activities" component={ActivityListScreen}/>
         </Tab.Navigator>
     )
