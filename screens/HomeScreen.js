@@ -1,28 +1,12 @@
 import {Image, StyleSheet, Text, View, Button, Alert } from 'react-native';
 
-import { supabase } from '../utils/supabase';
-
-import { useContext } from 'react';
-import { UserContext } from '../contexts/userContext';
-
 import OutlinedButton from '../components/Buttons/OutlinedButton';
-import IconButton from '../components/Buttons/IconButton';
+
 
 const HomeScreen = ({ navigation }) => {
-
-    const { user, setUser } = useContext(UserContext);
-    
-    const signOutHandler = async () => {
-      const { event } = await supabase.auth.signOut()
-      setUser(null)
-      console.log(event)
-    } 
-
-    function helpHandler() {};
     
     return (
       <View style={styles.container}>
-
 
         <View style = {styles.top}>
         
@@ -32,20 +16,9 @@ const HomeScreen = ({ navigation }) => {
                     style = {{width: 200, height: 220, bottom: 15}}
                 />
             </View>
-          
-
-          <View style = {styles.topbuttons} >
-          
-            
-            <IconButton icon= "log-out" onPress={signOutHandler}  size = {30} colour= "black"  />
-            <IconButton icon= "help-outline" onPress={helpHandler}  size = {30} colour= "black"  />
-            
-              
-
-          </View>
+        
         </View>
 
-        
 
         <View style = {styles.mid}>
           <Text style = {styles.title}>NUSinteract</Text>
@@ -78,7 +51,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: "#b1f2ff"
+    backgroundColor: 'white'
   },
 
   top:{
@@ -91,9 +64,7 @@ const styles = StyleSheet.create({
     flex: 10,
     marginTop: 110,
     marginLeft: 95,
-    //alignItems:'center',
-    //justifyContent:'center',
-    //flexDirection:'row'
+
   },
   topbuttons:{
     flex:2.5,
@@ -107,8 +78,7 @@ const styles = StyleSheet.create({
     flex:3
   },
   bottom:{
-    //alignItems: 'center',
-    //justifyContent:'center',
+
     marginTop: 10,
     flex:4
   },
@@ -122,7 +92,6 @@ const styles = StyleSheet.create({
 
   title: {
     marginTop: 20,
-    //paddingVertical: 30,
     paddingHorizontal: 10,
     borderWidth: 4,
     borderColor: "#20232a",

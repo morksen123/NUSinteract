@@ -106,9 +106,7 @@ const styles = StyleSheet.create({
 
 entireContainer:{ 
   flex: 1,
-  backgroundColor:"#b1f2ff" 
-  //alignItems: 'center', 
-  //justifyContent: 'center' 
+  backgroundColor: 'white'
 },
 
 statusContainer: { 

@@ -9,6 +9,8 @@ import ProfileScreen from "../screens/ProfileScreen";
 import ActivityListScreen from "../screens/ActivityListScreen";
 import HomeHostJoinStack from "./HomeHostJoinStack";
 
+import SignInStackHeader from "../components/header/SignInStackHeader";
+
 const fullScreenWidth = Dimensions.get('window').width; 
 
 const Tab = createBottomTabNavigator(); 
@@ -40,15 +42,15 @@ const SignInStack = () => {
                     )
                 },
                 
-                tabBarActiveTintColor: '#0E86D4',
+                tabBarActiveTintColor: '#7058DE',
                 tabBarInactiveTintColor: 'black',
                 style: {width: fullScreenWidth},
-                headerShown: false 
+                header: (props) => <SignInStackHeader {...props}/>
             })}>
             
-            <Tab.Screen name="Home" component={HomeHostJoinStack}/>
+            <Tab.Screen name="Home" component={HomeHostJoinStack} options={{ header: () => null }}/>
             <Tab.Screen name="Profile" component={ProfileScreen}/>
-            <Tab.Screen name="Chat" component={ChatStack}/> 
+            <Tab.Screen name="Chat" component={ChatStack} options={{ header: () => null }}/> 
             <Tab.Screen name="Activities" component={ActivityListScreen}/>
         </Tab.Navigator>
     )

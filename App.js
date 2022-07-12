@@ -4,7 +4,8 @@ import SignOutStack from './navigation/SignOutStack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { UserProvider } from './contexts/userContext';
-import { HostIDProvider } from './contexts/hostIDContext';
+import { Provider } from 'react-native-paper';
+
 
 import { UserContext } from './contexts/userContext';
 
@@ -12,11 +13,11 @@ import { useContext } from 'react';
 
 const AppWrapper = () => {
   return (
-    <UserProvider>
-      <HostIDProvider>
+    <Provider>
+      <UserProvider>
         <App/>
-      </HostIDProvider>
-    </UserProvider>
+      </UserProvider>
+    </Provider>
   )
 }
 
