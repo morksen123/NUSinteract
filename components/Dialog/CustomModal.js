@@ -7,7 +7,7 @@ import {
     Portal
 } from 'react-native-paper';
 
-const CustomModal = ({ body, title, onCancelHandler, onDoneHandler }) => {
+const CustomModal = ({ body, title, onCancelHandler, onDoneHandler, error }) => {
 
   return (
       <View> 

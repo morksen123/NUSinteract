@@ -34,13 +34,13 @@ const SignInStackHeader = (props) => {
             <Appbar.Action icon="account-multiple-plus" onPress={onPressAddHandler} />
             <Appbar.Action icon="logout" onPress={() => setShowModal(true)}/>
             { 
-              showModal ? 
+              showModal && 
               <CustomModal
                   onDoneHandler={signOutHandler}
                   onCancelHandler={() => setShowModal(false)}
                   body={'Logout from NUSinteract?'}
                   title={'Confim Logout'}
-              /> : null 
+              /> 
           }
     </Appbar.Header>
 

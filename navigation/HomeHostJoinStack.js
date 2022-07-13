@@ -13,14 +13,31 @@ const Stack = createNativeStackNavigator();
 
 const HomeHostJoinStack = () => {
     return (
-        <Stack.Navigator 
-            screenOptions={{ header: (props) => <SignInStackHeader {...props}/> }}
-        >
-            <Stack.Screen name="HomeCopy" component={HomeScreen}/>
-            <Stack.Screen name="HostActivity" component={HostActivityScreen}/>
-            <Stack.Screen name="Map" component={MapScreen}/>
-            <Stack.Screen name="PickLocation" component={PickLocationScreen}/>
-            <Stack.Screen name="Request" component={RequestScreen}/>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="HomeCopy" 
+                component={HomeScreen}
+                options={{ header: (props) => <SignInStackHeader {...props}/> }}
+            />
+            <Stack.Screen
+                name="HostActivity"
+                component={HostActivityScreen}
+                options={{ header: (props) => <SignInStackHeader {...props}/> }}
+            />
+            <Stack.Screen
+                name="Map" 
+                component={MapScreen}
+                options={{ header: (props) => <SignInStackHeader {...props}/> }} 
+            />
+            <Stack.Screen
+                name="PickLocation" 
+                component={PickLocationScreen}
+            />
+            <Stack.Screen
+                name="Request"
+                component={RequestScreen}
+                options={{ header: (props) => <SignInStackHeader {...props}/> }}    
+            />
         </Stack.Navigator>
     )
 }

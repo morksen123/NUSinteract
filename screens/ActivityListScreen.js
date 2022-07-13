@@ -9,13 +9,16 @@ import { supabase } from '../utils/supabase';
 
 import OutlinedButton from '../components/Buttons/OutlinedButton';
 
+import CustomModal from '../components/Dialog/CustomModal';
+
 
 const ActivityListScreen = () => {
     
     const { user } = useContext(UserContext);
-
-
+    
     const [data, setData] = useState(null)
+
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         const getData = async () => {
@@ -105,10 +108,21 @@ const ActivityListScreen = () => {
 
                                 <OutlinedButton 
                                     icon="log-out" 
-                                    onPress={() => leaveActivityHandler(activity['activity_id'])}
+                                    onPress={() => setShowModal(true)}
                                 > 
                                     Leave Activity 
                                 </OutlinedButton>
+
+                                {
+                                    showModal &&
+
+                                    <CustomModal
+                                        onDoneHandler={() => leaveActivityHandler(activity['activity_id'])}
+                                        onCancelHandler={() => setShowModal(false)}
+                                        body={'Are you sure you want to leave this activity?'}
+                                        title={'Leave Activity'}
+                                    />
+                                }
                             </View>
                         ))}
                     </View>

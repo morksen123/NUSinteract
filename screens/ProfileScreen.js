@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { Modal, Portal, Text, Button, Provider } from 'react-native-paper';
 
@@ -12,7 +12,7 @@ import { supabase } from "../utils/supabase";
 import { UserContext } from "../contexts/userContext";
 import OutlinedButton from "../components/Buttons/OutlinedButton";
 
-// import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 
 /* polyfills */
 /** URL polyfill */
@@ -74,17 +74,20 @@ const ProfileScreen = () => {
         </Modal>
       </Portal>
 
-    {loading ? <ActivityIndicator size="small" color="#0000ff" /> :
+    {
+      loading ? 
+
+      <ActivityIndicator
+        size="large" 
+        color="#0000ff" 
+        justifyContent='center'
+        style={{flex: 1}}
+        /> :
 
       <View style={styles.entireContainer}>
         <Avatar data={userData}/>
-        <View style={styles.statusContainer}>
-          <Text style={styles.title}>Username: </Text>
-          <Text style={styles.body}>{user.user_metadata.username} </Text>
-          <Text style={styles.title}>About me: </Text>
+          <Text style={styles.title}>About me </Text>
           <Text style={styles.body}>{details} </Text>
-        </View>
-
         <View style = {styles.updatebutton}>
 
           <OutlinedButton icon="create" onPress={showModal}>
@@ -116,16 +119,19 @@ statusContainer: {
 },
   
 title: {
-    fontSize: 30, 
-    textAlign: 'center',
-    marginBottom: 5
+    fontSize: 25, 
+    paddingLeft: 20,
+    marginBottom: 5,
+    fontWeight: '600',
 },
 
 body: {
   fontSize: 20, 
   fontFamily: "AvenirNext-Italic",
-  textAlign: 'center',
-  marginBottom: 20
+  marginBottom: 35,
+  paddingLeft: 20,
+  paddingRight: 20,
+  fontWeight: '400'
 },
 
 updatebutton:{

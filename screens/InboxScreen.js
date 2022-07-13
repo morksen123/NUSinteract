@@ -23,27 +23,6 @@ const InboxScreen = ({ navigation }) => {
 
   const [InboxChatData, setInboxChatData] = useState(null)
 
-  // useEffect(() => {
-
-  //   const getListOfRoomsData = async () => {
-  //     const { error, data } = await supabase 
-  //       .from('joinActivity')
-  //       .select(`
-  //         activity_id,
-  //         messages(content, created_at),
-  //         users!joinActivity_user_id_fkey(username, avatar_url),
-  //         hostActivity(activity_details)
-  //         `)
-  //       .match({ user_id: user.id, accepted: true })
-
-  //     console.log({ error, data})  
-      
-  //     setInboxChatData(data)
-  //   }
-  //   getListOfRoomsData(); 
-
-  // }, [])
-
   useEffect(() => {
 
     const getListOfRoomsData = async () => {
