@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 import OutlinedButton from '../components/Buttons/OutlinedButton';
 
@@ -12,8 +12,8 @@ const HomeScreen = ({ navigation }) => {
         
             <View style = {styles.topimage}>
                 <Image
-                    source = {require('../assets/logo.png')}
-                    style = {{width: 200, height: 220, bottom: 15}}
+                    source={require('../assets/logo.png')}
+                    style={{width: 200, height: 220, bottom: 15}}
                 />
             </View>
         

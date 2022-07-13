@@ -66,8 +66,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white" ,
         height: '100%',
         justifyContent: 'center',
-    
-        //alignItems: 'center',
     },
 
     title:{
@@ -93,7 +91,9 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 120, 
         paddingHorizontal: 8, 
-        marginBottom: 10
+        marginBottom: 10,
+        flexWrap: 'wrap', 
+        alignItems: 'flex-start'
 
     }
 });
