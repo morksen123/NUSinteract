@@ -53,7 +53,7 @@ const MapScreen = ({navigation}) => {
 
         joinActivity()
 
-        navigation.navigate("Activities")
+        alert('You have joined the activity')
     }
 
     return (
@@ -74,6 +74,7 @@ const MapScreen = ({navigation}) => {
                             <Text>{marker.activity_details.time}</Text>
                             <Text>{marker.activity_details.location_details}</Text>
                             <Text>{marker.activity_details.details}</Text> 
+                            <Text style={{fontWeight: '700'}}>Tap To Join</Text> 
                         </View>
                     </Callout>
                 </Marker>

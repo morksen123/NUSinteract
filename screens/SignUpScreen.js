@@ -125,13 +125,13 @@ const SignUpScreen = () => {
             </View>
 
             { 
-                showModal ? 
+                showModal && 
                 <CustomModal
                     onDoneHandler={signUpWithEmail}
                     onCancelHandler={() => setShowModal(false)}
                     body={confirmMessage}
                     title={confirmTitle}
-                /> : null 
+                />  
             }
         </View>
         

@@ -36,7 +36,7 @@ const HomeHostJoinStack = () => {
             <Stack.Screen
                 name="Request"
                 component={RequestScreen}
-                options={{ header: (props) => <SignInStackHeader {...props}/> }}    
+                options={{ header: (props) => <SignInStackHeader {...props}/> }} 
             />
         </Stack.Navigator>
     )

@@ -16,7 +16,8 @@ const RequestCard = (props) => {
         activityID,
         hostActivityData,
         setHostActivityData,
-        id
+        id, 
+        setShowModal
     } = props;
     
 
@@ -36,19 +37,19 @@ const RequestCard = (props) => {
     const acceptRequest = async () => {
         const { error, data } = await supabase
             .from('joinActivity')
-            .upsert({
-                user_id: userID, 
-                activity_id: activityID,
+            .update({
                 accepted: 'true'
             }) 
+            .match({ user_id: userID, activity_id: activityID })
     }
 
     const addUserToChatGroup = async () => {
         const { error, data } = await supabase
-            .from('room_participants')
+            .from('messages')
             .insert([{
                 room_id: activityID,
-                profile_id: userID
+                user_id: userID,
+                content: 'auto-generated: I am a new member'
             }])
     }
 
@@ -70,32 +71,38 @@ const RequestCard = (props) => {
         declineRequest()
 
     }
-    
+               
 
     return (
         <SafeAreaView>
-        <Card>
-            <View>
-                <Text>User: {username}</Text>
-                <Text>Activity: {title}</Text>
-            </View>
-            <Card.Actions style={{ justifyContent:'flex-end' }}>
-                <Button 
-                    style={styles.button} 
-                    mode='contained'
-                    onPress={onAcceptHandler}
-                >
-                    Accept
-                </Button>
-                <Button 
-                    style={styles.button} 
-                    mode='outlined'
-                    onPress={onDeclineHandler}
-                >
-                    Decline
-                </Button>
-            </Card.Actions>
-        </Card>
+            <Card>
+                <View style={styles.text}>
+                    <Text style={{ paddingLeft: 17 }}>User: {username}</Text>
+                    <Text style={{ paddingLeft: 17 }}>Activity: {title}</Text>
+                    <Button 
+                        style={{ alignSelf: 'flex-start' }}
+                        onPress={() => setShowModal(true)}
+                    >
+                        Profile
+                    </Button>
+                </View>
+                <Card.Actions style={{ justifyContent:'flex-end' }}>
+                    <Button 
+                        style={styles.button} 
+                        mode='contained'
+                        onPress={onAcceptHandler}
+                    >
+                        Accept
+                    </Button>
+                    <Button 
+                        style={styles.button} 
+                        mode='outlined'
+                        onPress={onDeclineHandler}
+                    >
+                        Decline
+                    </Button>
+                </Card.Actions>
+            </Card>
     </SafeAreaView> 
     )   
 };
@@ -107,5 +114,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         padding: 5,
         borderRadius: 20,
+    },
+    
+    text: {
+        fontSize: 20,
+        paddingTop: 8
+        
     }
 })
