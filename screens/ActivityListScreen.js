@@ -17,7 +17,6 @@ const ActivityListScreen = () => {
     const { user } = useContext(UserContext);
     
     const [data, setData] = useState(null)
-
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
@@ -71,7 +70,7 @@ const ActivityListScreen = () => {
 
     return (
         
-        <ScrollView style = {styles.bg}>
+        <ScrollView>
             <SafeAreaView>
 
                 <View style={styles.container}>

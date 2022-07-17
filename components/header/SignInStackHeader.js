@@ -23,6 +23,7 @@ const SignInStackHeader = (props) => {
   }
   
   const onPressAddHandler = () => {
+    navigation.navigate("Home")
     navigation.navigate("Request")
   }
 

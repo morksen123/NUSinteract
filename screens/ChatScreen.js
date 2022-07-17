@@ -75,16 +75,17 @@ const ChatScreen = (props) => {
   }, [])
 
   return (
-    <GiftedChat
-      messages={messages}
-      showAvatarForEveryMessage={true}
-      onSend={messages => onSend(messages)}
-      renderUsernameOnMessage={true}
-      user={{
-        _id: user.id,
-        name: user.user_metadata.username
-      }} 
-    />
+      <GiftedChat
+        messages={messages}
+        showAvatarForEveryMessage={true}
+        onSend={messages => onSend(messages)}
+        renderUsernameOnMessage={true}
+        user={{
+          _id: user.id,
+          name: user.user_metadata.username
+        }} 
+      />
+    
   )
 }
 

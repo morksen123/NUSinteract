@@ -5,17 +5,21 @@ import { supabase } from '../utils/supabase';
 import { useContext, useState, useEffect } from 'react';
 
 import RequestCard from '../components/hostActivity/RequestCard';
+import ProfileModal from '../components/profile/ProfileModal';
 
 import { UserContext } from '../contexts/userContext';
 
 import { ActivityIndicator } from 'react-native-paper';
+
 
 const RequestScreen = () => {
 
     const { user } = useContext(UserContext);
 
     const [hostActivityData, setHostActivityData] = useState([])
+    const [userProfileData, setUserProfileData] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
 
@@ -34,10 +38,32 @@ const RequestScreen = () => {
 
     }, [])
 
+    useEffect(() => {
+        const getUserData = async () => {
+        const { error, data } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', user.id)
+
+            setUserProfileData(data)
+        }
+
+        getUserData();
+  }, [])
+
+
 
     return (
         <ScrollView> 
             <SafeAreaView>
+
+                { 
+                    showModal && 
+                    <ProfileModal
+                        userProfileData={userProfileData}  
+                        onCancelHandler={() => setShowModal(false)}
+                    />
+                }
 
                 <Text style={styles.joinedTitle}>REQUESTS TO JOIN MY ACTIVITIES</Text>
                 
@@ -50,19 +76,21 @@ const RequestScreen = () => {
                             activity_id,
                             user_id,
                             hostActivity: { activity_details },
-                            users: { username } 
+                            users: { username },
+                            id 
                         } = activity;
 
                         return (
                             <RequestCard
-                                key={activity.id}
+                                key={id}
                                 id={activity.id}
                                 username={username}
                                 title={activity_details.title}
                                 userID={user_id}
                                 activityID={activity_id}
                                 hostActivityData={hostActivityData}
-                                setHostActivityData={setHostActivityData}                    
+                                setHostActivityData={setHostActivityData}
+                                setShowModal={setShowModal}                  
                             />
                         )
                     })
@@ -76,6 +104,8 @@ const RequestScreen = () => {
 export default RequestScreen;
 
 const styles = StyleSheet.create({
+
+
     button: {
         marginLeft: 10,
         padding: 5,
