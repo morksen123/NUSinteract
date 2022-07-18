@@ -10,7 +10,7 @@ import { supabase } from '../utils/supabase';
 
 
 
-const MapScreen = ({navigation}) => {
+const MapScreen = () => {
 
     const [data, setData] = useState([])
 

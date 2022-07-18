@@ -11,6 +11,7 @@ import OutlinedButton from '../components/Buttons/OutlinedButton';
 
 import CustomModal from '../components/Dialog/CustomModal';
 
+import { useIsFocused } from '@react-navigation/native';
 
 const ActivityListScreen = () => {
     
@@ -18,6 +19,8 @@ const ActivityListScreen = () => {
     
     const [data, setData] = useState(null)
     const [showModal, setShowModal] = useState(false)
+
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         const getData = async () => {
@@ -33,13 +36,12 @@ const ActivityListScreen = () => {
                 .eq('user_id', user.id)
                 
                 const filteredData = data.filter((activity) => activity.accepted === 'true')
-                // console.log(filteredData)
                 setData(filteredData)
         }
 
         getData();
 
-    }, [data])
+    }, [isFocused])
 
 
     function leaveActivityHandler(key) {
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     },
 
     joinedTitle: {
-        marginTop: 20,
+        marginTop: 5,
         paddingHorizontal: 10,
         borderWidth: 4,
         borderColor: "#20232a",
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#7FFFD4',
         color: "#20232a",
         textAlign: "center",
-        fontSize: 30,
+        fontSize: 27,
         fontWeight: "bold",
         fontFamily: "AvenirNext-Italic",
     },
