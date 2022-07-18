@@ -4,8 +4,8 @@ import SignOutStack from './navigation/SignOutStack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { UserProvider } from './contexts/userContext';
-import { Provider } from 'react-native-paper';
 
+import { Provider } from 'react-native-paper';
 
 import { UserContext } from './contexts/userContext';
 

@@ -6,9 +6,11 @@ import { supabase } from '../utils/supabase';
 
 import { GiftedChat } from 'react-native-gifted-chat'
 
+
 const ChatScreen = (props) => {
 
   const { route: { params: { activity_id }}} = props
+  
   const [messages, setMessages] = useState([]);
 
   const { user } = useContext(UserContext)
@@ -66,7 +68,6 @@ const ChatScreen = (props) => {
                 room_id: activity_id
             })            
   }
-
 
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))

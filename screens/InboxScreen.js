@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import {
@@ -23,6 +24,8 @@ const InboxScreen = ({ navigation }) => {
 
   const [InboxChatData, setInboxChatData] = useState(null)
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
 
     const getListOfRoomsData = async () => {
@@ -42,11 +45,12 @@ const InboxScreen = ({ navigation }) => {
     }
     getListOfRoomsData(); 
 
-  }, [])
+  }, [isFocused])
 
 
     return (
       <Container>
+        <Text style={styles.joinedTitle}>Chats</Text>
         <FlatList 
           data={InboxChatData}
           keyExtractor={item=>item.joinActivity[0].activity_id}
@@ -57,7 +61,7 @@ const InboxScreen = ({ navigation }) => {
                 navigation.navigate('Messages',
                   {
                     name: `${item.activity_details.title} Chatroom`,
-                    activity_id: item.joinActivity[0].activity_id
+                    activity_id: item.joinActivity[0].activity_id,
                   })}
             >
               <UserInfo>
@@ -88,6 +92,13 @@ const InboxScreen = ({ navigation }) => {
 export default InboxScreen;
 
 const styles = StyleSheet.create({
+  joinedTitle: {
+    marginTop: 15,
+    textAlign: "center",
+    fontSize: 25,
+    fontWeight: "bold",
+    
+},
   container: {
     flex: 1, 
     alignItems: 'center', 

@@ -24,11 +24,20 @@ const HostActivityForm = ({ onPressHandler }) => {
     const [enteredTitle, setTitle] = useState('');
     const [enteredTime, setTime] = useState('');
     const [enteredDetails, setDetails] = useState('');    
-    const [pickedLocation, setPickedLocation] = useState();
+    const [pickedLocation, setPickedLocation] = useState(null);
 
     const { user } = useContext(UserContext) ;
 
     async function HostActivityHandler() {
+
+        if (enteredDetails === '' ||
+             enteredTime === '' || 
+             enteredTitle === ''|| 
+             pickedLocation === null) {
+            
+            alert('invalid actvity')
+        } else {
+
 
         const { data, error } = await supabase
             .from('hostActivity')
@@ -43,10 +52,11 @@ const HostActivityForm = ({ onPressHandler }) => {
                     time: enteredTime,
                     details: enteredDetails,  
                     location_details: pickedLocation.address,
-                }
+                } 
             }])
 
             onPressHandler();
+        }
     }
 
         
