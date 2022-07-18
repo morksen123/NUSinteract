@@ -10,7 +10,7 @@ import { supabase } from '../../utils/supabase';
 const RequestCard = (props) => {
 
     const {
-        username,
+        user,
         title, 
         userID,
         activityID,
@@ -77,7 +77,7 @@ const RequestCard = (props) => {
         <SafeAreaView>
             <Card>
                 <View style={styles.text}>
-                    <Text style={{ paddingLeft: 17 }}>User: {username}</Text>
+                    <Text style={{ paddingLeft: 17 }}>User: {user.username}</Text>
                     <Text style={{ paddingLeft: 17 }}>Activity: {title}</Text>
                     <Button 
                         style={{ alignSelf: 'flex-start' }}

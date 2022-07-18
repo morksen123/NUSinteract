@@ -8,6 +8,8 @@ import { supabase } from '../../utils/supabase';
 
 import CustomModal from '../Dialog/CustomModal';
 
+import CustomBadge from '../badge/badge';
+
 const SignInStackHeader = (props) => {
 
   const { navigation, back } = props
@@ -33,6 +35,7 @@ const SignInStackHeader = (props) => {
     {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
             <Appbar.Content title=''/>
             <Appbar.Action icon="account-multiple-plus" onPress={onPressAddHandler} />
+            <CustomBadge/>
             <Appbar.Action icon="logout" onPress={() => setShowModal(true)}/>
             { 
               showModal && 

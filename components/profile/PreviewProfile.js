@@ -14,12 +14,7 @@ import 'react-native-url-polyfill/auto';
 
 const PreviewProfile = ({ userProfileData, onCancelHandler }) => {
 
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true); 
-
-  const { user } = useContext(UserContext);
-
-  const { status, avatar_url } = userProfileData[0];
+  const { users: { avatar_url, status } } = userProfileData[0];
 
   console.log(userProfileData)
 
@@ -33,11 +28,11 @@ const PreviewProfile = ({ userProfileData, onCancelHandler }) => {
           style={{width: 100, height: 100, borderRadius: 100 }} 
         />
             <Text style={styles.title}>About me </Text>
-            <Text style={styles.body}>{status} </Text>
+            <Text style={styles.body}>{status}</Text>
             <Button 
               onPress={onCancelHandler}
             >
-              Cancel
+              Close
             </Button>
 
         </View>
@@ -70,7 +65,8 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 15,
     fontFamily: "AvenirNext-Italic",
-    marginBottom: 35,
+    marginBottom: 30,
+    marginTop: 5,
     paddingLeft: 20,
     paddingRight: 20,
     fontWeight: '400'
