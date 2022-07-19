@@ -56,8 +56,7 @@ const MapScreen = () => {
             .select('*')
             .match({ user_id: user.id, activity_id: activityID})
         
-        let queryData = data
-        if (data == queryData) {
+        if (JSON.stringify(data) === JSON.stringify([])) {
             joinActivity(activityID);
         } else {
             alert('You have already joined the activity')
