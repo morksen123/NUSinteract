@@ -12,6 +12,7 @@ import { supabase } from '../utils/supabase';
 const MapScreen = () => {
 
     const [data, setData] = useState([])
+    const [queryIfJoinedData, setQueryIfJoinedData] = useState(null)
 
     const { user } = useContext(UserContext);
 
@@ -53,18 +54,19 @@ const MapScreen = () => {
             .from('joinActivity')
             .select('*')
             .match({ user_id: user.id, activity_id: activityID})
-
-        return data === null;
+            
+            setQueryIfJoinedData(data)
     }
 
-    
     function onPressMarkerHandler(activityID) { 
 
-        let joined = checkIfActivityJoined(activityID)
-        if (joined) {
-            alert('You have already joined the activity')
-        } else {
+        checkIfActivityJoined(activityID);
+        console.log(queryIfJoinedData)
+
+        if (queryIfJoinedData === null) {
             joinActivity(activityID);
+        } else {
+            alert('You have already joined the activity')
         }
     }
 
