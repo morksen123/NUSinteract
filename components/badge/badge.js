@@ -2,17 +2,17 @@ import { Badge } from 'react-native-paper';
 
 import { useContext } from 'react';
 
-import { NotificationContext } from '../../contexts/notificationContext';
+import { RequestContext } from '../../contexts/requestContext';
 
 const CustomBadge = () => {
 
-    const { notiCount } = useContext(NotificationContext);
+    const { numRequests } = useContext(RequestContext);
 
     return (
         <Badge
             style={{ position: 'absolute', top: 5, right: 51 }}
         >
-            {notiCount}
+            {numRequests}
         </Badge>
     )
   

@@ -1,46 +1,19 @@
 import { StyleSheet, SafeAreaView, Text, ScrollView } from 'react-native';
 
-import { supabase } from '../utils/supabase';
-
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 
 import RequestCard from '../components/hostActivity/RequestCard';
 import ProfileModal from '../components/profile/ProfileModal';
 
-import { UserContext } from '../contexts/userContext';
+import { RequestContext } from '../contexts/requestContext';
 
-import { ActivityIndicator } from 'react-native-paper';
-import { NotificationContext } from '../contexts/notificationContext';
 
 
 const RequestScreen = () => {
 
-    const { user } = useContext(UserContext);
-
-    const [hostActivityData, setHostActivityData] = useState([])
-    const [loading, setLoading] = useState(true)
+    const { requestsData } = useContext(RequestContext)
     const [showModal, setShowModal] = useState(false)
 
-    const { setNotiCount } = useContext(NotificationContext);
-
-    useEffect(() => {
-
-        const getHostActivityData = async () => {
-            const { error, data } = await supabase
-                .from('joinActivity')
-                .select('*, hostActivity!inner(*), users!joinActivity_user_id_fkey(username, avatar_url, status)')
-                .eq('hostActivity.user_id', user.id )
-                .eq('accepted', 'pending')  
-
-            
-            setNotiCount(hostActivityData.length)
-            setHostActivityData(data)
-            setLoading(false)
-        }
-
-        getHostActivityData() 
-
-    }, [])
 
     return (
         <ScrollView> 
@@ -49,7 +22,7 @@ const RequestScreen = () => {
                 { 
                     showModal && 
                     <ProfileModal
-                        userProfileData={hostActivityData}  
+                        userProfileData={requestsData}  
                         onCancelHandler={() => setShowModal(false)}
                     />
                 }
@@ -57,9 +30,8 @@ const RequestScreen = () => {
                 <Text style={styles.joinedTitle}>REQUESTS TO JOIN MY ACTIVITIES</Text>
                 
                 { 
-                    loading ? <ActivityIndicator animating={true} color='red'/> : 
-
-                    hostActivityData.map((activity) => {
+    
+                    requestsData.map((activity) => {
 
                         const { 
                             activity_id,
@@ -77,8 +49,6 @@ const RequestScreen = () => {
                                 title={activity_details.title}
                                 userID={user_id}
                                 activityID={activity_id}
-                                hostActivityData={hostActivityData}
-                                setHostActivityData={setHostActivityData}
                                 setShowModal={setShowModal}                  
                             />
                         )

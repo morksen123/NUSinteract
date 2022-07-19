@@ -160,20 +160,6 @@ const styles = StyleSheet.create({
         fontFamily: "AvenirNext-Italic",
     },
 
-    hostTitle: {
-        marginTop: 20,
-        paddingHorizontal: 10,
-        borderWidth: 4,
-        borderColor: "#20232a",
-        borderRadius: 6,
-        backgroundColor: '#F1836C',
-        color: "#20232a",
-        textAlign: "center",
-        fontSize: 30,
-        fontWeight: "bold",
-        fontFamily: "AvenirNext-Italic",
-    },
-
     activity: {
         marginTop: 10,
         marginBottom: 10,   

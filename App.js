@@ -4,7 +4,7 @@ import SignOutStack from './navigation/SignOutStack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { UserProvider } from './contexts/userContext';
-import { NotificationProvider } from './contexts/notificationContext';
+import { RequestProvider } from './contexts/requestContext';
 
 import { Provider } from 'react-native-paper';
 
@@ -16,9 +16,9 @@ const AppWrapper = () => {
   return (
     <Provider>
       <UserProvider>
-        <NotificationProvider>
+        <RequestProvider>
           <App/>
-        </NotificationProvider>
+        </RequestProvider>
       </UserProvider>
     </Provider>
   )

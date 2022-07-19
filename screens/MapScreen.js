@@ -9,7 +9,6 @@ import { UserContext } from '../contexts/userContext';
 import { supabase } from '../utils/supabase';
 
 
-
 const MapScreen = () => {
 
     const [data, setData] = useState([])
@@ -21,8 +20,6 @@ const MapScreen = () => {
             const { error, data } = await supabase
                 .from('hostActivity')
                 .select('*')
-        
-                // console.log(data)
                 setData(data)
         }
 
@@ -52,8 +49,7 @@ const MapScreen = () => {
         }
 
         joinActivity()
-
-        alert('You have joined the activity')
+        alert('Success!')
     }
 
     return (
