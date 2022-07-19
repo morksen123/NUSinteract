@@ -45,7 +45,8 @@ const SignInStack = () => {
                 tabBarActiveTintColor: '#7058DE',
                 tabBarInactiveTintColor: 'black',
                 style: {width: fullScreenWidth},
-                header: (props) => <SignInStackHeader {...props}/>
+                header: (props) => <SignInStackHeader {...props}/>,
+                lazy: false
             })}>
             
             <Tab.Screen name="Home" component={HomeHostJoinStack} options={{ header: () => null }}/>

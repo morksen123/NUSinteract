@@ -1,24 +1,26 @@
-import * as React from 'react';
 import { Card, Button, Text } from 'react-native-paper';
 
 import { StyleSheet } from 'react-native';
+import { useContext } from 'react';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-animatable';
 import { supabase } from '../../utils/supabase';
 
+import { RequestContext } from '../../contexts/requestContext';
+
 const RequestCard = (props) => {
 
     const {
-        username,
+        user,
         title, 
         userID,
         activityID,
-        hostActivityData,
-        setHostActivityData,
         id, 
         setShowModal
     } = props;
+
+    const { requestsData, setRequestsData } = useContext(RequestContext)
     
 
     /**
@@ -30,8 +32,8 @@ const RequestCard = (props) => {
             acceptRequest();
             addUserToChatGroup();
                 
-            const filteredData = hostActivityData.filter((activity) => activity.id !== id)
-            setHostActivityData(filteredData)     
+            const filteredData = requestsData.filter((activity) => activity.id !== id)
+            setRequestsData(filteredData)     
     }
 
     const acceptRequest = async () => {
@@ -58,14 +60,13 @@ const RequestCard = (props) => {
         const declineRequest = async () => {
             const { error, data } = await supabase
                 .from('joinActivity')
-                .upsert({
-                    user_id: userID, 
-                    activity_id: activityID,
+                .update({
                     accepted: 'false'
-                }) 
+                })
+                .match({ user_id: userID, activity_id: activityID })
                 
-                const filteredData = hostActivityData.filter((activity) => activity.id !== id)
-                setHostActivityData(filteredData)     
+                const filteredData = requestsData.filter((activity) => activity.id !== id)
+                setRequestsData(filteredData)     
         }
 
         declineRequest()
@@ -77,7 +78,7 @@ const RequestCard = (props) => {
         <SafeAreaView>
             <Card>
                 <View style={styles.text}>
-                    <Text style={{ paddingLeft: 17 }}>User: {username}</Text>
+                    <Text style={{ paddingLeft: 17 }}>User: {user.username}</Text>
                     <Text style={{ paddingLeft: 17 }}>Activity: {title}</Text>
                     <Button 
                         style={{ alignSelf: 'flex-start' }}

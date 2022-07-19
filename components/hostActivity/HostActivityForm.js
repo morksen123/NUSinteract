@@ -15,6 +15,7 @@ import { UserContext } from '../../contexts/userContext';
 import { supabase } from '../../utils/supabase';
 
 import OutlinedButton from '../Buttons/OutlinedButton';
+import { ActivityIndicator } from 'react-native-paper';
 
 const THEME = '#3F3F3F';
 
@@ -25,8 +26,31 @@ const HostActivityForm = ({ onPressHandler }) => {
     const [enteredTime, setTime] = useState('');
     const [enteredDetails, setDetails] = useState('');    
     const [pickedLocation, setPickedLocation] = useState(null);
+    
 
     const { user } = useContext(UserContext) ;
+
+    const hostJoinsActivity = async (activityID) => {
+        const { error, data } = await supabase
+            .from('joinActivity')
+            .insert([{
+                user_id: user.id,
+                activity_id: activityID,
+                accepted: 'true'
+            }])
+
+            error ? alert(error.message) : null
+    }
+
+    const hostGeneratedMessage = async (activityID) => {
+        const { error, data } = await supabase
+            .from('messages')
+            .insert([{
+                room_id: activityID,
+                user_id: user.id,
+                content: 'I am the host'
+            }])
+    }
 
     async function HostActivityHandler() {
 
@@ -37,7 +61,6 @@ const HostActivityForm = ({ onPressHandler }) => {
             
             alert('invalid actvity')
         } else {
-
 
         const { data, error } = await supabase
             .from('hostActivity')
@@ -55,6 +78,13 @@ const HostActivityForm = ({ onPressHandler }) => {
                 } 
             }])
 
+            error ? alert(error.message) : null
+            
+            if (data) {
+                hostJoinsActivity(data[0].activity_id)
+                hostGeneratedMessage(data[0].activity_id)
+            }
+        
             onPressHandler();
         }
     }
@@ -125,21 +155,21 @@ const HostActivityForm = ({ onPressHandler }) => {
                     Location Of Activity
                 </Text>
 
-                <View style = {styles.padlocation} >
+                <View style={styles.padlocation} >
                     <LocationPicker onPickLocation={pickLocationHandler}/>
                 </View>
 
-                <View style = {styles.buttons}>
+                <View style={styles.buttons}>
                     <View style = {styles.hostActivity}>           
                         <OutlinedButton
                             icon="people-circle"
-                            onPress = {HostActivityHandler}
+                            onPress={HostActivityHandler}
                         >
                         Confirm Activity
                         </OutlinedButton> 
                     </View>  
                     
-                    <View style = {styles.cancelActivity}>
+                    <View style={styles.cancelActivity}>
                         <OutlinedButton
                             icon="close"
                             onPress = {onPressHandler}
@@ -212,9 +242,4 @@ const styles = StyleSheet.create({
         marginRight: 16
 
     },
-
-    cancelActivity:{
-        //marginRight:
-    }
-
 });
