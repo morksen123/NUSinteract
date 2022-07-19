@@ -1,18 +1,45 @@
 import { StyleSheet, SafeAreaView, Text, ScrollView } from 'react-native';
 
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import RequestCard from '../components/hostActivity/RequestCard';
 import ProfileModal from '../components/profile/ProfileModal';
 
+import { supabase } from '../utils/supabase';
+
+import { UserContext } from '../contexts/userContext';
 import { RequestContext } from '../contexts/requestContext';
+
+import { ActivityIndicator } from 'react-native-paper';
 
 
 
 const RequestScreen = () => {
 
-    const { requestsData } = useContext(RequestContext)
+    const { user } = useContext(UserContext)
+    const { requestsData, setRequestsData } = useContext(RequestContext)
+    
     const [showModal, setShowModal] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+
+    useEffect(() => {
+
+        const getRequestsData = async () => {
+            const { error, data } = await supabase
+                .from('joinActivity')
+                .select('*, hostActivity!inner(*), users!joinActivity_user_id_fkey(username, avatar_url, status)')
+                .eq('hostActivity.user_id', user.id )
+                .eq('accepted', 'pending')  
+          
+            setRequestsData(data)
+            setLoading(false)
+        }
+    
+          getRequestsData(); 
+    
+    }, [])
+    
 
 
     return (
@@ -20,6 +47,8 @@ const RequestScreen = () => {
             <SafeAreaView>
 
                 { 
+                    loading ? <ActivityIndicator/> : 
+
                     showModal && 
                     <ProfileModal
                         userProfileData={requestsData}  
@@ -78,7 +107,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: "#20232a",
         borderRadius: 6,
-        backgroundColor: '#7FFFD4',
+        backgroundColor: '#81ebe0',
         color: "#20232a",
         textAlign: "center",
         fontSize: 27,

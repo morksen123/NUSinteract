@@ -16,8 +16,8 @@ const SignInStackHeader = (props) => {
 
   const { navigation, back } = props
 
-  const { user, setUser } = useContext(UserContext);
-  const { setNumRequests, setRequestsData } = useContext(RequestContext)
+  const { user } = useContext(UserContext);
+  const { setRequestsData } = useContext(RequestContext)
 
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
@@ -32,7 +32,6 @@ const SignInStackHeader = (props) => {
             .eq('hostActivity.user_id', user.id )
             .eq('accepted', 'pending')  
       
-        setNumRequests(data.length)
         setRequestsData(data)
         setLoading(false)
     }

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const RequestContext = createContext({
     numRequests: 0, 
@@ -9,6 +9,11 @@ export const RequestContext = createContext({
 export const RequestProvider = ({ children }) => {
     const [numRequests, setNumRequests] = useState(0);
     const [requestsData, setRequestsData] = useState([])
+
+
+    useEffect(() => {
+        setNumRequests(requestsData.length);
+      }, [requestsData]);
 
     const value = { 
         numRequests,

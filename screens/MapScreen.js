@@ -35,21 +35,37 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    function onPressMarkerHandler(activityID) { 
-        
-        //join activity handler
-        const joinActivity = async () => {
-        
-            const { data, error } = await supabase
-                .from('joinActivity')
-                .insert([{
-                    'user_id': user.id,
-                    'activity_id': activityID
-                }])
-        }
+    // joins the activity in supabase
+    const joinActivity = async (activityID) => {
+        const { data, error } = await supabase
+            .from('joinActivity')
+            .insert([{
+                'user_id': user.id,
+                'activity_id': activityID
+            }])
 
-        joinActivity()
-        alert('Success!')
+            
+            error ? alert(error.message) : alert('Success!')
+    }
+
+    const checkIfActivityJoined = async (activityID) => {
+        const { data, error } = await supabase
+            .from('joinActivity')
+            .select('*')
+            .match({ user_id: user.id, activity_id: activityID})
+
+        return data === null;
+    }
+
+    
+    function onPressMarkerHandler(activityID) { 
+
+        let joined = checkIfActivityJoined(activityID)
+        if (joined) {
+            alert('You have already joined the activity')
+        } else {
+            joinActivity(activityID);
+        }
     }
 
     return (
