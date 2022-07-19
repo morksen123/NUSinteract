@@ -49,21 +49,14 @@ const MapScreen = () => {
             error ? alert(error.message) : alert('Success!')
     }
 
-    const checkIfActivityJoined = async (activityID) => {
+    async function onPressMarkerHandler(activityID) { 
+
         const { data, error } = await supabase
             .from('joinActivity')
             .select('*')
             .match({ user_id: user.id, activity_id: activityID})
-            
-            setQueryIfJoinedData(data)
-    }
 
-    function onPressMarkerHandler(activityID) { 
-
-        checkIfActivityJoined(activityID);
-        console.log(queryIfJoinedData)
-
-        if (queryIfJoinedData === null) {
+        if (data === null) {
             joinActivity(activityID);
         } else {
             alert('You have already joined the activity')
@@ -73,8 +66,8 @@ const MapScreen = () => {
     return (
         <MapView 
             style={styles.map}
-            initialRegion = {region}
-            provider = {PROVIDER_GOOGLE}
+            initialRegion={region}
+            provider={PROVIDER_GOOGLE}
         >
            {data.map((marker) => (
 
