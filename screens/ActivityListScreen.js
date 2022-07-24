@@ -31,11 +31,12 @@ const ActivityListScreen = () => {
                     activity_id,
                     accepted,
                     hostActivity (
-                        activity_details
+                        activity_details,
+                        user_id
                     )
                 `)
                 .eq('user_id', user.id)
-                
+            
                 const filteredData = data.filter((activity) => activity.accepted === 'true')
                 setData(filteredData)
         }
@@ -101,25 +102,25 @@ const ActivityListScreen = () => {
     ** returns a button that allows the removal of activities if 
     ** the activity shown is hosted by the user logged in
     */
-    const checkIfActivityHost = (activity) => {
-        if (activity.user_id === activity.hostActivity.user_id) {
-            return (
-                <DeleteActivityButton
-                    onPress={() => setShowDeleteModal(true)}
-                > 
-                    Delete Activity 
-                </DeleteActivityButton>
-        )} else {
-            return (
-                <OutlinedButton 
-                    icon="log-out" 
-                    onPress={() => setShowModal(true)}
-                > 
-                    Leave Activity 
-                </OutlinedButton>
-        )}   
-    }
+    const displayButton = (activity) => {
 
+            if (activity.hostActivity.user_id === user.id) {
+                return (
+                    <DeleteActivityButton
+                        onPress={() => setShowDeleteModal(true)}
+                    > 
+                        Delete Activity 
+                    </DeleteActivityButton>
+            )} else {
+                return (
+                    <OutlinedButton 
+                        icon="log-out" 
+                        onPress={() => setShowModal(true)}
+                    > 
+                        Leave Activity 
+                    </OutlinedButton>
+            )}
+    }
 
     if (!data) {
         return (
@@ -168,7 +169,7 @@ const ActivityListScreen = () => {
                                     </View>
                                 </View>
 
-                                {checkIfActivityHost(activity)}
+                                {displayButton(activity)}
 
                                 {
                                     showModal &&
