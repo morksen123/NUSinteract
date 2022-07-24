@@ -1,19 +1,19 @@
 import {Pressable, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-function OutlinedButton ({onPress, icon, children }) {
+function DeleteActivityButton ({onPress, children }) {
     return (
         <Pressable 
             style={({pressed}) => [styles.button, pressed && styles.pressed]}
             onPress={onPress}>
-            <Ionicons style={styles.icon} name={icon} size={30} colour= {'#407BFF'} />
+            <Ionicons style={styles.icon} name='close-outline' size={30} colour= {'#407BFF'} />
             <Text style={styles.text}>{children}</Text>
         </Pressable>
     );
 
 }
 
-export default OutlinedButton;
+export default DeleteActivityButton;
 
 const styles = StyleSheet.create({ 
     button: {
@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderWidth: 2,
         borderRadius: 20,
-        backgroundColor: '#9E89FE'
-        
+        backgroundColor: '#FF451D'
     },
     
     pressed: {
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: 'white',
+        color: 'black',
     }
 
 });

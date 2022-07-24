@@ -1,6 +1,9 @@
+import { ActivityType } from 'expo-location';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-paper';
 
 import OutlinedButton from '../components/Buttons/OutlinedButton';
+import { supabase } from '../utils/supabase';
 
 
 const HomeScreen = ({ navigation }) => {
