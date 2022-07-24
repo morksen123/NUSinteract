@@ -12,6 +12,7 @@ import DeleteActivityButton from '../components/Buttons/DeleteActivityButton';
 import CustomModal from '../components/Dialog/CustomModal';
 
 import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native-paper';
 
 const ActivityListScreen = () => {
     
@@ -58,17 +59,21 @@ const ActivityListScreen = () => {
         const temp = data.filter((activity) => activity['activity_id'] !== key)
         setData(temp);
         deleteData()  
+        setShowModal(false)
     }
 
     // function allows host to delete activities
     const deleteActivity = async (activityID) => {
         deleteAllMessages(activityID);
         removeUsersFromActivity(activityID)
-        deleteHostAcitivtyData(activityID)
+
+        setTimeout(() => {
+            deleteHostAcitivtyData(activityID)
+        }, 2000);
 
         const temp = data.filter((activity) => activity['activity_id'] !== activityID)
         setData(temp);
-        
+        setShowDeleteModal(false)
     }
 
     const deleteHostAcitivtyData = async (activityID) => {
@@ -76,6 +81,8 @@ const ActivityListScreen = () => {
         .from('hostActivity')
         .delete()
         .match({ activity_id: activityID })
+        
+        error ? alert(error.message) : null
     }
     
     // function to remove users fronm joined activity
