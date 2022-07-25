@@ -12,6 +12,7 @@ const ChatScreen = (props) => {
   const { route: { params: { activity_id }}} = props
   
   const [messages, setMessages] = useState([]);
+  const [participants, setParticipants] = useState([])
 
   const { user } = useContext(UserContext)
 
@@ -39,6 +40,19 @@ const ChatScreen = (props) => {
     getData()
   }, [])
 
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      const { data } = await supabase
+        .from('users')
+        .select('id, username')
+
+      setParticipants(data)
+    }
+
+    fetchParticipants()
+
+  }, [])
+
 
   /*
   ** Enabling realtime on messages with supabase
@@ -47,7 +61,22 @@ const ChatScreen = (props) => {
     const subscription = supabase
         .from('messages')
         .on('INSERT', (payload) => {
-            setMessages((current) => [...current, payload.new])
+            let userObject = participants.filter(participant => participant.id === payload.new.user_id)      
+            let newMessage = {
+              _id: payload.new.id,
+              createdAt: payload.new.created_at,
+              text: payload.new.content,
+              user: {
+                _id: payload.new.user_id,
+              }
+            }
+
+            console.log(newMessage)
+
+            if (payload.new.user_id != user.id) {
+              setMessages((current) => [...current, newMessage]) 
+              console.log(messages)
+            }
         })
         .subscribe();
 
@@ -55,7 +84,8 @@ const ChatScreen = (props) => {
         supabase.removeSubscription(subscription)
     }
   }, [])
-          
+
+
   /*
   ** stores message in database
   */
@@ -70,7 +100,9 @@ const ChatScreen = (props) => {
   }
 
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    setMessages(previousMessages => 
+      GiftedChat.append(previousMessages, messages)
+    )
     onSendHandler(messages[0].text); 
     
   }, [])

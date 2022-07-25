@@ -46,17 +46,6 @@ function LocationPicker({onPickLocation}) {
             const permissionResponse = await requestPermission();
             return permissionResponse.granted;
         }
-
-//        if (locationPermissionInformation.status === PermissionStatus.DENIED) {
-//            Alert.alert(
-//                'Insufficient Permission!',
-//                'You need to grant location service permissions to use this.'
-
- //           );
-//            return false;
-
-//        }
-        return true;
     }
 
     async function getLocationHandler() {
