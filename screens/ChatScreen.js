@@ -48,7 +48,6 @@ const ChatScreen = (props) => {
     const subscription = supabase
         .from('messages')
         .on('INSERT', (payload) => {
-          console.log(payload)
          
             let newMessage = {
               _id: payload.new.id,
@@ -56,13 +55,13 @@ const ChatScreen = (props) => {
               text: payload.new.content,
               user: {
                 _id: payload.new.user_id,
-                name: ''
+                name: 'reload screen to see',
+                avatar: `https://cdn2.vectorstock.com/i/1000x1000/13/56/reload-icon-vector-21641356.jpg`
               }
             }
 
             if (payload.new.user_id != user.id) {
               setMessages((current) => [newMessage, ...current]) 
-              alert('new message')
             }
         })
         .subscribe();
@@ -71,8 +70,6 @@ const ChatScreen = (props) => {
         supabase.removeSubscription(subscription)
     }
   }, [])
-
-    
 
 
   /*
@@ -85,7 +82,7 @@ const ChatScreen = (props) => {
                 content: message,
                 user_id: user.id,
                 room_id: activity_id
-            })            
+            })         
   }
   
 
@@ -105,7 +102,7 @@ const ChatScreen = (props) => {
         renderUsernameOnMessage={true}
         user={{
           _id: user.id,
-          name: 'host'
+          name: user.user_metadata.username
         }} 
       />
     
