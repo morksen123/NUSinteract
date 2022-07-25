@@ -31,7 +31,7 @@ const ChatScreen = (props) => {
             createdAt: doc.created_at,
             user: { 
                 _id: doc.user_id,
-                name: 'member',
+                name: doc.users.username,
                 avatar: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${doc.users.avatar_url}`
             }
         })))
@@ -56,7 +56,7 @@ const ChatScreen = (props) => {
               text: payload.new.content,
               user: {
                 _id: payload.new.user_id,
-                name: 'member'
+                name: ''
               }
             }
 
