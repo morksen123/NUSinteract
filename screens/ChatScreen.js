@@ -12,7 +12,6 @@ const ChatScreen = (props) => {
   const { route: { params: { activity_id }}} = props
   
   const [messages, setMessages] = useState([]);
-  const [participants, setParticipants] = useState([])
 
   const { user } = useContext(UserContext)
 
@@ -20,7 +19,7 @@ const ChatScreen = (props) => {
     const getData = async () => {
         const { error, data } = await supabase
           .from('messages')
-          .select('*, users(username)')
+          .select('*, users(username, avatar_url)')
           .match({ room_id: activity_id })
           .order('created_at', { ascending: false})
 
@@ -32,25 +31,13 @@ const ChatScreen = (props) => {
             createdAt: doc.created_at,
             user: { 
                 _id: doc.user_id,
-                name: doc.users.username,
+                name: 'member',
+                avatar: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${doc.users.avatar_url}`
             }
         })))
     }
 
     getData()
-  }, [])
-
-  useEffect(() => {
-    const fetchParticipants = async () => {
-      const { data } = await supabase
-        .from('users')
-        .select('id, username')
-
-      setParticipants(data)
-    }
-
-    fetchParticipants()
-
   }, [])
 
 
@@ -61,21 +48,21 @@ const ChatScreen = (props) => {
     const subscription = supabase
         .from('messages')
         .on('INSERT', (payload) => {
-            let userObject = participants.filter(participant => participant.id === payload.new.user_id)      
+          console.log(payload)
+         
             let newMessage = {
               _id: payload.new.id,
               createdAt: payload.new.created_at,
               text: payload.new.content,
               user: {
                 _id: payload.new.user_id,
+                name: 'member'
               }
             }
 
-            console.log(newMessage)
-
             if (payload.new.user_id != user.id) {
-              setMessages((current) => [...current, newMessage]) 
-              console.log(messages)
+              setMessages((current) => [newMessage, ...current]) 
+              alert('new message')
             }
         })
         .subscribe();
@@ -84,6 +71,8 @@ const ChatScreen = (props) => {
         supabase.removeSubscription(subscription)
     }
   }, [])
+
+    
 
 
   /*
@@ -98,6 +87,7 @@ const ChatScreen = (props) => {
                 room_id: activity_id
             })            
   }
+  
 
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages => 
@@ -115,7 +105,7 @@ const ChatScreen = (props) => {
         renderUsernameOnMessage={true}
         user={{
           _id: user.id,
-          name: user.user_metadata.username
+          name: 'host'
         }} 
       />
     

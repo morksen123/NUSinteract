@@ -48,7 +48,7 @@ const HostActivityForm = ({ onPressHandler }) => {
             .insert([{
                 room_id: activityID,
                 user_id: user.id,
-                content: 'I am the host'
+                content: 'Welcome to the chatroom for this activity'
             }])
     }
 

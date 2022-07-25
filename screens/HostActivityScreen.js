@@ -9,7 +9,6 @@ const HostActivityScreen = () => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  //const containerStyle = {backgroundColor: 'white', padding: 20, flex: 1};
 
   return (
     <View style = {styles.container}>
@@ -57,8 +56,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       paddingTop:100,
       paddingLeft:40,
-      //paddingBottom:0,
-
   },
 
   captionTitle2:{
@@ -66,16 +63,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop:10,
     paddingLeft:70,
-    //paddingBottom:0,
-
 },
 
   categoryTitle:{
-      //alignItems: 'center',
-      //justifyContent: 'center',
-
       marginTop: 50,
-      //paddingVertical: 30,
       paddingHorizontal: 10,
       borderWidth: 4,
       borderColor: "#20232a",
