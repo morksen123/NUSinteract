@@ -12,7 +12,6 @@ import DeleteActivityButton from '../components/Buttons/DeleteActivityButton';
 import CustomModal from '../components/Dialog/CustomModal';
 
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator } from 'react-native-paper';
 
 const ActivityListScreen = () => {
     
@@ -62,7 +61,12 @@ const ActivityListScreen = () => {
         setShowModal(false)
     }
 
-    // function allows host to delete activities
+
+    /**
+     * @desc when an activity is deleted, all messages in the group chat are deleted 
+     * and all users are removed
+     * @param {*} activityID 
+     */
     const deleteActivity = async (activityID) => {
         deleteAllMessages(activityID);
         removeUsersFromActivity(activityID)
@@ -85,7 +89,7 @@ const ActivityListScreen = () => {
         error ? alert(error.message) : null
     }
     
-    // function to remove users fronm joined activity
+
     const removeUsersFromActivity = async (activityID) => {
         const { data, error } = await supabase  
           .from('joinActivity')
@@ -105,9 +109,9 @@ const ActivityListScreen = () => {
           error ? alert(error.message) : null
     }
 
-    /*
-    ** returns a button that allows the removal of activities if 
-    ** the activity shown is hosted by the user logged in
+    /**
+    * @returns a button that allows the removal of activities if 
+    * the joined activity shown is hosted by the user logged in
     */
     const displayButton = (activity) => {
 

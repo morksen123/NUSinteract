@@ -12,7 +12,6 @@ import { supabase } from '../utils/supabase';
 const MapScreen = () => {
 
     const [data, setData] = useState([])
-    const [queryIfJoinedData, setQueryIfJoinedData] = useState(null)
 
     const { user } = useContext(UserContext);
 
@@ -36,7 +35,7 @@ const MapScreen = () => {
         longitudeDelta: 0.01984
     };
 
-    // joins the activity in supabase
+
     const joinActivity = async (activityID) => {
         const { data, error } = await supabase
             .from('joinActivity')

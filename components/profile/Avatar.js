@@ -23,10 +23,10 @@ const Avatar = ({ data }) => {
 
   const { user } = useContext(UserContext);
 
-
-  /*
-  ** Allows picking of image from photo gallery
-  */
+  
+  /**
+   * @desc enables set profile picture from phone gallery
+   */
   const pickImage = async () => {
 
     setLoading(true)

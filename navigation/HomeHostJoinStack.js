@@ -11,6 +11,10 @@ import SignInStackHeader from "../components/header/SignInStackHeader";
 
 const Stack = createNativeStackNavigator(); 
 
+/**
+ **
+ * @returns A stack that contains all the screens nested in the home screen
+ */
 const HomeHostJoinStack = () => {
     return (
         <Stack.Navigator>

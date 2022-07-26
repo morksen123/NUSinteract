@@ -15,7 +15,6 @@ import { UserContext } from '../../contexts/userContext';
 import { supabase } from '../../utils/supabase';
 
 import OutlinedButton from '../Buttons/OutlinedButton';
-import { ActivityIndicator } from 'react-native-paper';
 
 const THEME = '#3F3F3F';
 
@@ -61,24 +60,23 @@ const HostActivityForm = ({ onPressHandler }) => {
             
             alert('invalid actvity')
         } else {
+            const { data, error } = await supabase
+                .from('hostActivity')
+                .insert([{
+                    user_id: user.id,
+                    coordinates: {
+                        latitude: pickedLocation.lat, 
+                        longitude: pickedLocation.lng
+                    },
+                    activity_details: {
+                        title: enteredTitle,
+                        time: enteredTime,
+                        details: enteredDetails,  
+                        location_details: pickedLocation.address,
+                    } 
+                }])
 
-        const { data, error } = await supabase
-            .from('hostActivity')
-            .insert([{
-                user_id: user.id,
-                coordinates: {
-                    latitude: pickedLocation.lat, 
-                    longitude: pickedLocation.lng
-                },
-                activity_details: {
-                    title: enteredTitle,
-                    time: enteredTime,
-                    details: enteredDetails,  
-                    location_details: pickedLocation.address,
-                } 
-            }])
-
-            error ? alert(error.message) : null
+                error ? alert(error.message) : null
             
             if (data) {
                 hostJoinsActivity(data[0].activity_id)
