@@ -7,6 +7,10 @@ import SignInStackHeader from "../components/header/SignInStackHeader";
 
 const Stack = createNativeStackNavigator(); 
 
+/**
+ * 
+ * @returns a stack which contains the list of chatrooms and the chat screen 
+ */
 const ChatStack = () => {
     return (
         <Stack.Navigator

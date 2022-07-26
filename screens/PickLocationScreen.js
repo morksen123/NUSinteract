@@ -5,7 +5,11 @@ import MapView, { Marker } from 'react-native-maps';
 import IconButton from '../components/Buttons/IconButton';
 
 
-const PickLocationScreen = ({navigation}) => {
+/**
+ * 
+ * @returns a screen that allows users to choose where they want to host their activity
+ */
+const PickLocationScreen = ({ navigation }) => {
     const [selectedLocation, setSelectedLocation] = useState();
 
     const region = {

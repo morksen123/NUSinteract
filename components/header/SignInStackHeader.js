@@ -25,6 +25,9 @@ const SignInStackHeader = (props) => {
 
   useEffect(() => {
 
+    /**
+     * @desc fetches data to display the activity requests for hosted activities
+     */
     const getRequestsData = async () => {
         const { error, data } = await supabase
             .from('joinActivity')
