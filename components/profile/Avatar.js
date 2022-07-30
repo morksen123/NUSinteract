@@ -39,7 +39,7 @@ const Avatar = ({ data }) => {
       quality: 1,
     });
 
-    let avatarUrl = '';
+    let avatarUrl
     // uploads image to supabase storage if there's no error with imagePicker
     if (!result.cancelled) {
 
