@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View>
+    <View
+      accessibilityRole="progressbar"
+      accessibilityState={
+        Object {
+          "busy": true,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+          },
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+        ]
+      }
+    >
+      <View
+        collapsable={false}
+        style={
+          Object {
+            "height": 24,
+            "opacity": 1,
+            "width": 24,
+          }
+        }
+      >
+        <View
+          collapsable={false}
+          style={
+            Object {
+              "alignItems": "center",
+              "bottom": 0,
+              "justifyContent": "center",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        >
+          <View
+            collapsable={false}
+            style={
+              Object {
+                "height": 24,
+                "transform": Array [
+                  Object {
+                    "rotate": "45deg",
+                  },
+                ],
+                "width": 24,
+              }
+            }
+          >
+            <View
+              collapsable={false}
+              style={
+                Object {
+                  "height": 12,
+                  "overflow": "hidden",
+                  "width": 24,
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                style={
+                  Object {
+                    "height": 24,
+                    "transform": Array [
+                      Object {
+                        "translateY": 0,
+                      },
+                      Object {
+                        "rotate": "-165deg",
+                      },
+                    ],
+                    "width": 24,
+                  }
+                }
+              >
+                <View
+                  collapsable={false}
+                  style={
+                    Object {
+                      "height": 12,
+                      "overflow": "hidden",
+                      "width": 24,
+                    }
+                  }
+                >
+                  <View
+                    collapsable={false}
+                    style={
+                      Object {
+                        "borderColor": "#6200ee",
+                        "borderRadius": 12,
+                        "borderWidth": 2.4,
+                        "height": 24,
+                        "width": 24,
+                      }
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          collapsable={false}
+          style={
+            Object {
+              "alignItems": "center",
+              "bottom": 0,
+              "justifyContent": "center",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        >
+          <View
+            collapsable={false}
+            style={
+              Object {
+                "height": 24,
+                "transform": Array [
+                  Object {
+                    "rotate": "45deg",
+                  },
+                ],
+                "width": 24,
+              }
+            }
+          >
+            <View
+              collapsable={false}
+              style={
+                Object {
+                  "height": 12,
+                  "overflow": "hidden",
+                  "top": 12,
+                  "width": 24,
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                style={
+                  Object {
+                    "height": 24,
+                    "transform": Array [
+                      Object {
+                        "translateY": -12,
+                      },
+                      Object {
+                        "rotate": "345deg",
+                      },
+                    ],
+                    "width": 24,
+                  }
+                }
+              >
+                <View
+                  collapsable={false}
+                  style={
+                    Object {
+                      "height": 12,
+                      "overflow": "hidden",
+                      "width": 24,
+                    }
+                  }
+                >
+                  <View
+                    collapsable={false}
+                    style={
+                      Object {
+                        "borderColor": "#6200ee",
+                        "borderRadius": 12,
+                        "borderWidth": 2.4,
+                        "height": 24,
+                        "width": 24,
+                      }
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <Image
+      onLoad={[Function]}
+      source={
+        Object {
+          "uri": "https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/avatars/blank-profile-picture-973460_1280.webp",
+        }
+      }
+      style={
+        Object {
+          "borderRadius": 100,
+          "height": 200,
+          "width": 200,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "marginTop": 10,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#9E89FE",
+            "borderRadius": 20,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "margin": 4,
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
+          false,
+        ]
+      }
+    >
+      <Text />
+      <Text
+        style={
+          Object {
+            "color": "white",
+          }
+        }
+      >
+        Choose Profile Picture
+      </Text>
+    </View>
+  </View>
+</View>
+`;
