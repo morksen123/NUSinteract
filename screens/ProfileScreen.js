@@ -107,36 +107,36 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
 
-entireContainer:{ 
-  flex: 1,
-  backgroundColor: 'white'
-},
+  entireContainer:{ 
+    flex: 1,
+    backgroundColor: 'white'
+  },
 
-statusContainer: { 
-  flex: 1, 
-  alignItems: 'center', 
-  justifyContent: 'center' 
-},
-  
-title: {
-    fontSize: 25, 
+  statusContainer: { 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
+    
+  title: {
+      fontSize: 25, 
+      paddingLeft: 20,
+      marginBottom: 5,
+      fontWeight: '600',
+  },
+
+  body: {
+    fontSize: 20, 
+    fontFamily: "AvenirNext-Italic",
+    marginBottom: 35,
     paddingLeft: 20,
-    marginBottom: 5,
-    fontWeight: '600',
-},
+    paddingRight: 20,
+    fontWeight: '400'
+  },
 
-body: {
-  fontSize: 20, 
-  fontFamily: "AvenirNext-Italic",
-  marginBottom: 35,
-  paddingLeft: 20,
-  paddingRight: 20,
-  fontWeight: '400'
-},
-
-updatebutton:{
-  marginBottom: 80
-}
+  updatebutton:{
+    marginBottom: 80
+  }
 
 
 });
