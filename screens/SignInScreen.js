@@ -52,7 +52,7 @@ const SignInScreen = ({ navigation }) => {
                 <View style={styles.imagecontainer}>
                     <Image
                         source={require('../assets/logo.png')}
-                        style={{ width: 200, height: 220, left: 17, bottom: 10, borderWidth: 3 }}
+                        style={{ width: 200, height: 220, left: 21, bottom: 10, borderWidth: 3 }}
                     />
                 </View>
 
