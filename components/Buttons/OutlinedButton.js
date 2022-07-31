@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         borderWidth: 2,
-        borderRadius: 20,
+        borderRadius: 30,
         backgroundColor: '#9E89FE'
         
     },
     
     pressed: {
-        opacity:0.5
+        opacity: 0.5
     },
     
     icon : {

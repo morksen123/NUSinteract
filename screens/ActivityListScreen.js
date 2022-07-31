@@ -8,10 +8,12 @@ import { supabase } from '../utils/supabase';
 
 import OutlinedButton from '../components/Buttons/OutlinedButton';
 import DeleteActivityButton from '../components/Buttons/DeleteActivityButton';
+import DisabledButton from '../components/Buttons/DisabledButton';
 
 import CustomModal from '../components/Dialog/CustomModal';
 
 import { useIsFocused } from '@react-navigation/native';
+
 
 const ActivityListScreen = () => {
     
@@ -37,7 +39,7 @@ const ActivityListScreen = () => {
                 `)
                 .eq('user_id', user.id)
             
-                const filteredData = data.filter((activity) => activity.accepted === 'true')
+                const filteredData = data.filter((activity) => activity.accepted === 'true' || activity.accepted === 'pending')
                 setData(filteredData)
         }
 
@@ -79,6 +81,7 @@ const ActivityListScreen = () => {
         setData(temp);
         setShowDeleteModal(false)
     }
+    
 
     const deleteHostAcitivtyData = async (activityID) => {
         const { data, error } = await supabase
@@ -122,6 +125,13 @@ const ActivityListScreen = () => {
                     > 
                         Delete Activity 
                     </DeleteActivityButton>
+            )} else if (activity.accepted === 'pending') {
+                return (
+                    <DisabledButton
+                        icon="hand-left"
+                    > 
+                        Pending
+                    </DisabledButton>
             )} else {
                 return (
                     <OutlinedButton 
