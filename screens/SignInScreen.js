@@ -49,16 +49,14 @@ const SignInScreen = ({ navigation }) => {
 
             <View style={styles.container}>
 
+
                 <View style={styles.imagecontainer}>
                     <Image
-                        source={require('../assets/logo.png')}
-                        style={{ width: 200, height: 220, left: 21, bottom: 10, borderWidth: 3 }}
+                        source={require('../assets/loginscreen1.png')}
+                        style={{ width: 450, height: 290}}
                     />
                 </View>
 
-                <Text style={styles.title}>
-                    NUSinteract
-                </Text>
 
                 <View style = {styles.fillup}>
                     <TextInput
@@ -111,12 +109,12 @@ export default SignInScreen;
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: 'white',
+        backgroundColor: '#baebe1',
         height: '100%',
         justifyContent: 'center',
     },
     imagecontainer:{
-         marginLeft:95,
+         alignSelf:'center'
     },
 
     textInput: {

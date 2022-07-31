@@ -68,7 +68,7 @@ const SignInStackHeader = (props) => {
                   onDoneHandler={signOutHandler}
                   onCancelHandler={() => setShowModal(false)}
                   body={'Logout from NUSinteract?'}
-                  title={'Confim Logout'}
+                  title={'Confirm Logout'}
               /> 
           }
     </Appbar.Header>
