@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
             <View style = {styles.topimage}>
                 <Image
                     source={require('../assets/logo.png')}
-                    style={{width: 200, height: 220, bottom: 15}}
+                    style={{width: 200, height: 220, left: 10}}
                 />
             </View>
         
@@ -29,13 +29,13 @@ const HomeScreen = ({ navigation }) => {
         
 
         <View style = {styles.bottom}>
-          <Text> Press any activity bubble on the map to join an activity! </Text>
+          <Text style={{fontSize: 16}}> Press any activity bubble on the map to join an activity! </Text>
 
           <View style = {styles.buttonActivities}>
             <OutlinedButton icon="person-add" onPress={() => navigation.navigate("Map")}>Join Activity </OutlinedButton>
           </View>
 
-          <Text> Fill up the activity details form to host an activity! </Text>
+          <Text style={{fontSize: 16}}> Fill up the activity details form to host an activity! </Text>
           <View style = {styles.buttonActivities}>
             <OutlinedButton icon="people" onPress={() => navigation.navigate("HostActivity")}>Host Activity</OutlinedButton>
           </View>

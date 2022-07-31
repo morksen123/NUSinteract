@@ -30,11 +30,11 @@ const SignUpScreen = () => {
     const confirmMessage = 'Your account details will be finalised and cannot be changed'
     const confirmTitle = 'Confirm Sign Up'
 
-    // check if sign up passed through
+
     const signUpWithEmail = async () => {
 
-        if (!email.includes("@u.nus.edu")) {
-            Alert.alert("NUS email required");
+        if (!email.includes("@u.nus.edu") && email.length < 17) {
+            Alert.alert("Invalid NUS email");
         
         } else if (password != confirmPassword) {
             Alert.alert("Different passwords")
