@@ -1,19 +1,20 @@
 import {Pressable, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-function DeleteActivityButton ({onPress, children }) {
+function DisabledButton ({ icon, children }) {
     return (
         <Pressable 
-            style={({pressed}) => [styles.button, pressed && styles.pressed]}
-            onPress={onPress}>
-            <Ionicons style={styles.icon} name='close-outline' size={30} colour= {'#407BFF'} />
+            style={styles.button}
+            disabled={true}
+        >
+            <Ionicons style={styles.icon} name={icon} size={30} colour= {'#407BFF'} />
             <Text style={styles.text}>{children}</Text>
         </Pressable>
     );
 
 }
 
-export default DeleteActivityButton;
+export default DisabledButton;
 
 const styles = StyleSheet.create({ 
     button: {
@@ -24,21 +25,17 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         borderWidth: 2,
-        borderRadius: 30,
-        backgroundColor: '#FF451D'
-    },
-    
-    pressed: {
-        opacity:0.5
+        borderRadius: 5,
+        backgroundColor: '#787473'
+        
     },
     
     icon : {
-        marginRight:6
+        marginRight: 6
     },
 
     text: {
-        color: 'black',
-        fontWeight: '600'
+        color: 'white',
     }
 
 });

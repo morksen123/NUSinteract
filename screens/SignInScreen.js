@@ -90,7 +90,8 @@ const SignInScreen = ({ navigation }) => {
 
                         <OutlinedButton
                             icon="document-text"
-                            onPress={navigateToSignUp}    
+                            onPress={navigateToSignUp}
+                            colour='red'    
                             
                         >
                             SIGN UP WITH NUS EMAIL
