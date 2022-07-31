@@ -11,27 +11,23 @@ const HomeScreen = ({ navigation }) => {
         
             <View style = {styles.topimage}>
                 <Image
-                    source={require('../assets/logo.png')}
-                    style={{width: 200, height: 220, left: 17, borderWidth: 3}}
+                    source={require('../assets/homescreen1.png')}
+                    style={{width: 395, height: 500}}
                 />
             </View>
         
         </View>
 
 
-        <View style={styles.mid}>
-          <Text style={styles.title}>You Host, I Join!</Text>
-        </View>
-        
 
         <View style = {styles.bottom}>
-          <Text style={{fontSize: 16}}> Press any activity bubble on the map to join an activity! </Text>
+          <Text style={{fontSize: 16, alignSelf:'center'}}> Press any activity bubble on the map to join an activity! </Text>
 
           <View style = {styles.buttonActivities}>
             <OutlinedButton icon="person-add" onPress={() => navigation.navigate("Map")}>Join Activity </OutlinedButton>
           </View>
 
-          <Text style={{fontSize: 16}}> Fill up the activity details form to host an activity! </Text>
+          <Text style={{fontSize: 16, alignSelf:'center'}}> Fill up the activity details form to host an activity! </Text>
           <View style = {styles.buttonActivities}>
             <OutlinedButton icon="people" onPress={() => navigation.navigate("HostActivity")}>Host Activity</OutlinedButton>
           </View>
@@ -50,19 +46,21 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: 'white'
+    backgroundColor: "#baebe1"
   },
 
   top:{
-    flex: 4,
+    flex: 7.5,
     flexDirection: 'row',
  
   },
 
   topimage:{
-    flex: 10,
-    marginTop: 110,
-    marginLeft: 95,
+    alignSelf:'center',
+    marginTop: 58,
+    marginLeft: -5
+
+
 
   },
   topbuttons:{
@@ -72,13 +70,9 @@ const styles = StyleSheet.create({
     
   },
 
-  mid: {
-    marginTop: 100,
-    flex:3
-  },
   bottom:{
     marginBottom: 30,
-    flex:4
+    flex:3
   },
 
   buttonActivities: {
