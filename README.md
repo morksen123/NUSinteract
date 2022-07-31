@@ -46,3 +46,7 @@ The user should be able to leave the joined activity.
 NUSinteract will also have a chat feature for the host and participants to stay connected and chat about relevant information regarding the activity.
 NUSinteract will have a profile page for users to update their profile picture as well as status. The host is able to see other users’ profiles when they request to join the hosted activity.
 
+
+Link to complete readME:
+https://docs.google.com/document/d/1w7cN5nmkWl8dQa7U-o77xgniQRnnCLp_K4xQDMMeY8s/edit
+
