@@ -58,7 +58,7 @@ const HostActivityForm = ({ onPressHandler }) => {
              enteredTitle === ''|| 
              pickedLocation === null) {
             
-            alert('invalid actvity')
+            alert('invalid activity')
         } else {
             const { data, error } = await supabase
                 .from('hostActivity')
