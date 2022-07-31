@@ -45,7 +45,7 @@ const MapScreen = () => {
             }])
 
             
-            error ? alert(error.message) : alert('Success!')
+            error ? alert(error.message) : alert('Join request sent to host!')
     }
 
     async function onPressMarkerHandler(activityID) { 
