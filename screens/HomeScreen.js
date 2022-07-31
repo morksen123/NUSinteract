@@ -12,13 +12,11 @@ const HomeScreen = ({ navigation }) => {
             <View style = {styles.topimage}>
                 <Image
                     source={require('../assets/homescreen1.png')}
-                    style={{width: 395, height: 500}}
+                    style={{ width: 395, height: 500 }}
                 />
             </View>
         
         </View>
-
-
 
         <View style = {styles.bottom}>
           <Text style={{fontSize: 16, alignSelf:'center'}}> Press any activity bubble on the map to join an activity! </Text>
@@ -59,15 +57,12 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     marginTop: 58,
     marginLeft: -5
-
-
-
   },
+  
   topbuttons:{
     flex:2.5,
     marginTop: 80,
     marginRight:1,
-    
   },
 
   bottom:{
