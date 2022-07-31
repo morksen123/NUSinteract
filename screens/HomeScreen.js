@@ -1,9 +1,5 @@
-import { ActivityType } from 'expo-location';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
-
 import OutlinedButton from '../components/Buttons/OutlinedButton';
-import { supabase } from '../utils/supabase';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -16,15 +12,15 @@ const HomeScreen = ({ navigation }) => {
             <View style = {styles.topimage}>
                 <Image
                     source={require('../assets/logo.png')}
-                    style={{width: 200, height: 220, left: 10}}
+                    style={{width: 200, height: 220, left: 17, borderWidth: 3}}
                 />
             </View>
         
         </View>
 
 
-        <View style = {styles.mid}>
-          <Text style = {styles.title}>NUSinteract</Text>
+        <View style={styles.mid}>
+          <Text style={styles.title}>You Host, I Join!</Text>
         </View>
         
 
@@ -81,8 +77,7 @@ const styles = StyleSheet.create({
     flex:3
   },
   bottom:{
-
-    marginTop: 10,
+    marginBottom: 30,
     flex:4
   },
 
@@ -91,7 +86,6 @@ const styles = StyleSheet.create({
     paddingBottom:10,
 
   },
-
 
   title: {
     marginTop: 20,

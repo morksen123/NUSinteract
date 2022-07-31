@@ -51,12 +51,12 @@ const SignInScreen = ({ navigation }) => {
 
                 <View style={styles.imagecontainer}>
                     <Image
-                        source = {require('../assets/logo.png')}
-                        style = {{width: 200, height: 220, bottom: 15}}
+                        source={require('../assets/logo.png')}
+                        style={{ width: 200, height: 220, left: 17, bottom: 10, borderWidth: 3 }}
                     />
                 </View>
 
-                <Text style={[styles.title, styles.boldText]}>
+                <Text style={styles.title}>
                     NUSinteract
                 </Text>
 
@@ -134,11 +134,9 @@ const styles = StyleSheet.create({
         fontSize: 35, 
         fontFamily: "AvenirNext-Italic",
         textAlign: 'center',
-        marginBottom: 20
-    },
-
-    boldText: {
-        fontWeight: '500'
+        marginBottom: 20,
+        fontWeight: '700',    
+        alignSelf: 'center'
     },
 
     OutlinedButton: {
