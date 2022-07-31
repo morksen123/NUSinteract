@@ -28,8 +28,6 @@ const Avatar = ({ data }) => {
    * @desc enables set profile picture from phone gallery
    */
   const pickImage = async () => {
-
-    setLoading(true)
       
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -43,7 +41,7 @@ const Avatar = ({ data }) => {
     // uploads image to supabase storage if there's no error with imagePicker
     if (!result.cancelled) {
 
-      alert('Uploading Profile Picture...')
+      setLoading(true)
 
       const ext = result.uri.substring(result.uri.lastIndexOf(".") + 1);
 
@@ -81,25 +79,27 @@ const Avatar = ({ data }) => {
 
       {
         <View>
-         {loading &&
-
-         <ActivityIndicator
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-          /> }
-
+         
           <Image 
             source={{ uri: `https://aqeopdkkfhradtlezpil.supabase.co/storage/v1/object/public/${avatarUrl}`}} 
             style={{width: 200, height: 200, borderRadius: 200 / 2}} 
             onLoad={() => setLoading(false)}
           />
+
+          {loading &&
+
+          <ActivityIndicator
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            size='large'
+          /> }
           
         </View>
           
